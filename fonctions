@@ -1,0 +1,8 @@
+getUsers() -> [{id, firstname, lastname, email}, ...]
+getUserById(id) -> {firstname, lastname, email}
+orderBox(id, user_id, adress, number, date)
+getBoxes() -> [{id, name, price, description}, ...]
+getFeedbackforBoxId(id) -> [[content, user_id], [content2, user_id], ...]
+getRecipes() -> [{id, name, steps, preparation, cook, difficulty}, ...]
+getIngredientsForRecipe(id) -> [ingredient, ...]
+getToolsForRecipe(id) -> [tool, ...]
