@@ -10,7 +10,20 @@ var urlencodedParser = bodyParser.urlencoded({
 app.use(urlencodedParser);
 app.use(bodyParser.json());
 
-api.getFromTable("*", "users", "id_user=2").then((result) => console.log(result))
+app.post('/auth', (req, res) => {
+
+    var email = req.body.email;
+    var password = req.body.password;
+
+    api.connectUser(email, password).then((token) => {
+        res.status(200);
+        res.send(token)
+    })
+    .catch((err) => {
+        res.status(404);
+        res.send(err)
+    });
+})
 
 var port = 8000;
 app.listen(port, () => console.log(`Listening on port ${port}`));
