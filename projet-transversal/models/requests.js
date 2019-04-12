@@ -65,7 +65,7 @@ module.exports = {
                 if (err) reject(err);
                 con.query(`SELECT * FROM users WHERE email='${email}'`, (err, result, fields) => {
                     if (err) reject(err);
-                    
+
                     if (result.length != 0)
                     {
                         if (!passwordHash.verify(password, result[0].password))
@@ -288,7 +288,7 @@ module.exports = {
         })
     },
 
-    getFromTable: (values, table, where) => {
+    getFromTable: (values, table, where="") => {
         return new Promise((resolve, reject) => {
             con.connect((err) => {
                 if (err) reject(err);
@@ -322,8 +322,7 @@ module.exports = {
                     values[1] = passwordHash.generate(values[1]);
                 }
 
-                let columnsJoined = columns.join(", ")
-                let query = `INSERT INTO ${table}(${columnsJoined}) VALUES (?)`;
+                let query = `INSERT INTO ${table}(${columns}) VALUES (?)`;
                 
                 con.query(query, [values], (err, result, fields) => {
                     if (err) reject(err);
