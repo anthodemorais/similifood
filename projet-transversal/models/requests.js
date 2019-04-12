@@ -208,42 +208,29 @@ module.exports = {
     //     });
     // },
 
-    // getIngredientId: (ingredient) => {
-    //     return new Promise((resolve, reject) => {
-    //         con.connect((err) => {
-    //             if (err) reject(err);
-    //             con.query(`SELECT id_ingredient FROM ingredients WHERE ingredient=${ingredient}`, (err, result, fields) => {
-    //                 if (err) reject(err);
-    //                 resolve(result);
-    //             });
-    //         });
-    //     });
-    // },
+    addIngredientForRecipe: (recipe_id, ingredient) => {
 
-    // getToolId: (tool) => {
-    //     return new Promise((resolve, reject) => {
-    //         con.connect((err) => {
-    //             if (err) reject(err);
-    //             con.query(`SELECT id_tool FROM tools WHERE tool=${tool}`, (err, result, fields) => {
-    //                 if (err) reject(err);
-    //                 resolve(result);
-    //             });
-    //         });
-    //     });
-    // },
+        return new Promise((resolve, reject) => {
+            con.connect((err) => {
+                if (err) reject(err);
+                con.query(`SELECT id_ingredient FROM ingredients WHERE ingredient=${ingredient}`, (err, result, fields) => {
+                    if (err) reject(err);
 
-    // addIngredientForRecipe: (recipe_id, ingredient_id) => {
-    //     return new Promise((resolve, reject) => {
-    //         con.connect((err) => {
-    //             if (err) reject(err);
-    //             con.query(`INSERT INTO recipe_has_ingredients(ingredient_id, recipe_id)
-    //                         VALUES (${ingredient_id}, ${recipe_id})`, (err, result, fields) => {
-    //                 if (err) reject(err);
-    //                 resolve(result);
-    //             });
-    //         });
-    //     });
-    // },
+                    if (result.length != 0)
+                    {
+                        con.query(`INSERT INTO recipe_has_ingredients(ingredient_id, recipe_id)
+                                    VALUES (${result.id_ingredient}, ${recipe_id})`, (err, result, fields) => {
+                            resolve(result);
+                        });
+                    }
+                    else
+                    {
+                        reject("Ingredient doesn't exist");
+                    }
+                });
+            });
+        });
+    },
 
     getIngredientsForRecipe: (id) => {
         return new Promise((resolve, reject) => {
@@ -260,18 +247,29 @@ module.exports = {
         })
     },
 
-    // addToolForRecipe: (recipe_id, tool_id) => {
-    //     return new Promise((resolve, reject) => {
-    //         con.connect((err) => {
-    //             if (err) reject(err);
-    //             con.query(`INSERT INTO recipe_has_tools(tool_id, recipe_id)
-    //                         VALUES (${tool_id}, ${recipe_id})`, (err, result, fields) => {
-    //                 if (err) reject(err);
-    //                 resolve(result);
-    //             });
-    //         });
-    //     });
-    // },
+    addToolForRecipe: (recipe_id, tool) => {
+
+        return new Promise((resolve, reject) => {
+            con.connect((err) => {
+                if (err) reject(err);
+                con.query(`SELECT id_tool FROM tools WHERE tool=${tool}`, (err, result, fields) => {
+                    if (err) reject(err);
+
+                    if (result.length != 0)
+                    {
+                        con.query(`INSERT INTO recipe_has_tools(tool_id, recipe_id)
+                                    VALUES (${result.id_tool}, ${recipe_id})`, (err, result, fields) => {
+                            resolve(result);
+                        });
+                    }
+                    else
+                    {
+                        reject("Tool doesn't exist");
+                    }
+                });
+            });
+        });
+    },
 
     getToolsForRecipe: (id) => {
         return new Promise((resolve, reject) => {
@@ -358,5 +356,35 @@ module.exports = {
                 });
             });
         })
+    },
+
+    postRequest: (req, res, table, columns) => {
+    
+        var values = [];
+    
+        for (key in req.body)
+        {
+            values.push(req.body[key]);
+        }
+    
+        this.addIntoTable(table, columns, values).then((result) => {
+            res.status(200);
+            res.send(result);
+        })
+        .catch((err) => {
+            res.status(404);
+            res.send(err);
+        });
+    },
+    
+    getRequest: (req, res, table, values, where="") => {
+        this.getFromTable(values, table, where).then((result) => {
+            res.status(200);
+            res.send(result);
+        })
+        .catch((err) => {
+            res.status(404);
+            res.send(err);
+        });
     }
 }
