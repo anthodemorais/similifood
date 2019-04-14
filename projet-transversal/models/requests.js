@@ -82,20 +82,6 @@ module.exports = {
         });
     },
 
-    // addUser: (email, password) => {
-    //     password = passwordHash.generate(password);
-
-    //     return new Promise((resolve, reject) => {
-    //         con.connect((err) => {
-    //             if (err) reject(err);
-    //             con.query(`INSERT INTO users (email, password) VALUES ('${email}', '${password}')`, (err, result, fields) => {
-    //                 if (err) reject(err);
-    //                 resolve(result);
-    //             });
-    //         });
-    //     });
-    // },
-
     orderBox: (user_id, box_id, adress, quantity) => {
         return new Promise((resolve, reject) => {
             con.connect((err) => {
@@ -117,93 +103,6 @@ module.exports = {
         });
     },
 
-    // getBoxes: () => {
-    //     return new Promise((resolve, reject) => {
-    //         con.connect((err) => {
-    //             if (err) reject(err);
-    //             con.query("SELECT * FROM boxes", (err, result, fields) => {
-    //                 if (err) reject(err);
-    //                 resolve(result);
-    //             });
-    //         });
-    //     });
-    // },
-
-    // addBox: (name, price, description) => {
-    //     return new Promise((resolve, reject) => {
-    //         con.connect((err) => {
-    //             if (err) reject(err);
-    //             con.query(`INSERT INTO boxes (name, price, description)
-    //                         VALUES ('${name}', ${price}, '${description}')`, (err, result, fields) => {
-    //                 if (err) reject(err);
-    //                 resolve(result);
-    //             });
-    //         });
-    //     });
-    // },
-
-    // addFeedback: (box_id, content, user_id) => {
-    //     return new Promise((resolve, reject) => {
-    //         con.connect((err) => {
-    //             if (err) reject(err);
-    //             con.query(`INSERT INTO feedbacks (content, user_id, box_id)
-    //                         VALUES ('${content}', ${user_id}, '${box_id}')`, (err, result, fields) => {
-    //                 if (err) reject(err);
-    //                 resolve(result);
-    //             });
-    //         });
-    //     });
-    // },
-
-    // getFeedbacks: (box_id) => {
-    //     return new Promise((resolve, reject) => {
-    //         con.connect((err) => {
-    //             if (err) reject(err);
-    //             con.query(`SELECT * FROM feedbacks WHERE box_id=${box_id}`, (err, result, fields) => {
-    //                 if (err) reject(err);
-    //                 resolve(result);
-    //             });
-    //         });
-    //     });
-    // },
-
-    // addRecipe: (name, steps, preparation, cook, difficulty) => {
-    //     return new Promise((resolve, reject) => {
-    //         con.connect((err) => {
-    //             if (err) reject(err);
-    //             con.query(`INSERT INTO recipes (name, steps, preparation_time, cook_time, difficulty)
-    //                         VALUES ('${name}', ${steps}, '${preparation}', '${cook}', ${difficulty})`, (err, result, fields) => {
-    //                 if (err) reject(err);
-    //                 resolve(result);
-    //             });
-    //         });
-    //     });
-    // },
-
-    // getRecipes: () => {
-    //     return new Promise((resolve, reject) => {
-    //         con.connect((err) => {
-    //             if (err) reject(err);
-    //             con.query(`SELECT * FROM recipes`, (err, result, fields) => {
-    //                 if (err) reject(err);
-    //                 resolve(result);
-    //             });
-    //         });
-    //     });
-    // },
-
-    // getRecipeById: (id) => {
-    //     return new Promise((resolve, reject) => {
-    //         con.connect((err) => {
-    //             if (err) reject(err);
-    //             con.query(`SELECT * FROM feedbacks WHERE id_recipe=${id}`, (err, result, fields) => {
-    //                 if (err) reject(err);
-    //                 resolve(result);
-    //             });
-    //         });
-    //     });
-    // },
-
     addIngredientForRecipe: (recipe_id, ingredient, quantity) => {
 
         return new Promise((resolve, reject) => {
@@ -216,13 +115,21 @@ module.exports = {
                     {
                         con.query(`INSERT INTO recipe_has_ingredients(ingredient_id, recipe_id, quantity)
                                     VALUES (${result.id_ingredient}, ${recipe_id}, ${quantity})`, (err, result, fields) => {
+
+                            if (err) reject(err);
                             resolve(result);
                         });
                     }
                     else
                     {
-                        // créer l'ingrédient s'il n'existe pas
-                        reject("Ingredient doesn't exist");
+                        this.addIntoTable("ingredients", "ingredient", [ingredient]).then((result2) => {
+                            con.query(`INSERT INTO recipe_has_ingredients(ingredient_id, recipe_id, quantity)
+                                        VALUES (${result2.insertId}, ${recipe_id}, ${quantity})`, (err, result3, fields) => {
+
+                                if (err) reject(err);                                
+                                resolve(result3);
+                            });
+                        });
                     }
                 });
             });
@@ -237,6 +144,7 @@ module.exports = {
                             INNER JOIN recipe_has_ingredients AS rhi
                             ON i.id_ingredient = rhi.ingredient_id
                             WHERE rhi.recipe_id = ${id}`, (err, result, fields) => {
+                                
                     if (err) reject(err);
                     resolve(result);
                 })
