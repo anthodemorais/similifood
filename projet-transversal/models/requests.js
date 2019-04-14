@@ -27,8 +27,6 @@
 // updateBox(id, newName, newPrice, newDescription) -> ()
 // updateFeedback(id, box_id, content, user_id)
 // updateRecipe(id, name, steps, preparation, cook, difficulty) -> ()
-// updateIngredientForRecipe(recipe_id, ingredient_id)
-// updateToolForRecipe(recipe_id, tool_id)
 // deleteUser(id)
 // deleteOrder(id)
 // deleteBox(id)
@@ -36,8 +34,6 @@
 // deleteRecipe(id)
 // deleteIngredientForRecipe(recipe_id, ingredient_id)
 // deleteToolForRecipe(recipe_id, tool_id)
-
-// refactor les select et les insert
 
 const mysql = require('mysql');
 const passwordHash = require("password-hash");
@@ -208,7 +204,7 @@ module.exports = {
     //     });
     // },
 
-    addIngredientForRecipe: (recipe_id, ingredient) => {
+    addIngredientForRecipe: (recipe_id, ingredient, quantity) => {
 
         return new Promise((resolve, reject) => {
             con.connect((err) => {
@@ -218,13 +214,14 @@ module.exports = {
 
                     if (result.length != 0)
                     {
-                        con.query(`INSERT INTO recipe_has_ingredients(ingredient_id, recipe_id)
-                                    VALUES (${result.id_ingredient}, ${recipe_id})`, (err, result, fields) => {
+                        con.query(`INSERT INTO recipe_has_ingredients(ingredient_id, recipe_id, quantity)
+                                    VALUES (${result.id_ingredient}, ${recipe_id}, ${quantity})`, (err, result, fields) => {
                             resolve(result);
                         });
                     }
                     else
                     {
+                        // créer l'ingrédient s'il n'existe pas
                         reject("Ingredient doesn't exist");
                     }
                 });
@@ -386,5 +383,56 @@ module.exports = {
             res.status(404);
             res.send(err);
         });
+    },
+
+    putRequest: (req, res, table, where) => {
+
+        var updates = [];
+        for (var key in req.body)
+        {
+            if (key == "password")
+            {
+                var password = passwordHash.generate(req.body[key]);
+                updates.push(key + "='" + password + "'")
+            }
+            else
+            {
+                updates.push(key + "='" + req.body[key] + "'")
+            }
+        }
+        var update = updates.join(", ");
+
+        con.connect((err) => {
+            if (err)
+            {
+                res.status(500);
+                res.send(err);
+                return
+            }
+
+            var query = `UPDATE ${table} SET ${update} WHERE ${where}`;
+            con.query(query, (err, result) => {
+                if (err)
+                {
+                    res.status(404);
+                    res.send(err);
+                    return
+                }
+                res.status(200);
+                res.send(result);
+                return
+            });
+        });
+    },
+
+    deleteRequest: (req, res, table, where) => {
+        this.deleteColumn(table, where).then((result) => {
+            res.status(200);
+            res.send(result);
+        })
+        .catch((err) => {
+            res.status(404);
+            res.send(result);
+        })
     }
 }
