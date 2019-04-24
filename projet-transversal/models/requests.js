@@ -37,7 +37,8 @@
 
 const mysql = require('mysql');
 const passwordHash = require("password-hash");
-const randtoken = require('rand-token');
+const jwt = require('jwt-simple');
+const config = require('../config/config.js');
 
   // Host	localhost
   // Port	8889
@@ -59,23 +60,21 @@ module.exports = {
         return new Promise((resolve, reject) => {
             con.connect((err) => {
                 if (err) reject(err);
-                con.query(`SELECT * FROM users WHERE email='${email}'`, (err, result, fields) => {
+                con.query(`SELECT * FROM users WHERE email=?`, [email], (err, result, fields) => {
                     if (err) reject(err);
 
                     if (result.length != 0)
                     {
                         if (!passwordHash.verify(password, result[0].password))
                         {
-                            reject("Invalid password");
+                            reject("Email or password incorrect");
                         }
-                        let token = randtoken.generate(45);
-                        con.query(`INSERT INTO tokens(token) VALUES('${token}')`, (err, result, fields) => {
-                            resolve(token);
-                        });
+                        let token = jwt.encode(this, config.secret);
+                        resolve(token);
                     }
                     else
                     {
-                        reject("Email does not exist");
+                        reject("Email or password incorrect");
                     }
                 });
             });
@@ -94,8 +93,8 @@ module.exports = {
                 date_of_order = dd + '/' + mm + '/' + yyyy;
 
                 var query = `INSERT INTO orders (status, user_id, box_id, adress, date_of_order, quantity)
-                            VALUES ('ordered', '${user_id}', '${box_id}', '${adress}', str_to_date('${date_of_order}', '%d/%m/%Y'), ${quantity})`
-                con.query(query, (err, result, fields) => {
+                            VALUES ('ordered', ?, ?, ?, str_to_date(?, '%d/%m/%Y'), ?)`
+                con.query(query, [user_id, box_id, adress, date_of_order, quantity], (err, result, fields) => {
                     if (err) reject(err);
                     resolve(result);
                 });
@@ -108,13 +107,13 @@ module.exports = {
         return new Promise((resolve, reject) => {
             con.connect((err) => {
                 if (err) reject(err);
-                con.query(`SELECT id_ingredient FROM ingredients WHERE ingredient=${ingredient}`, (err, result, fields) => {
+                con.query(`SELECT id_ingredient FROM ingredients WHERE ingredient=?`, [ingredient], (err, result, fields) => {
                     if (err) reject(err);
 
                     if (result.length != 0)
                     {
                         con.query(`INSERT INTO recipe_has_ingredients(ingredient_id, recipe_id, quantity)
-                                    VALUES (${result.id_ingredient}, ${recipe_id}, ${quantity})`, (err, result, fields) => {
+                                    VALUES (?, ?, ?)`, [result.id_ingredient, recipe_id, quantity], (err, result, fields) => {
 
                             if (err) reject(err);
                             resolve(result);
@@ -124,7 +123,7 @@ module.exports = {
                     {
                         this.addIntoTable("ingredients", "ingredient", [ingredient]).then((result2) => {
                             con.query(`INSERT INTO recipe_has_ingredients(ingredient_id, recipe_id, quantity)
-                                        VALUES (${result2.insertId}, ${recipe_id}, ${quantity})`, (err, result3, fields) => {
+                                        VALUES (?, ?, ?)`, [result2.insertId, recipe_id, quantity], (err, result3, fields) => {
 
                                 if (err) reject(err);                                
                                 resolve(result3);
@@ -143,7 +142,7 @@ module.exports = {
                 con.query(`SELECT ingredient FROM ingredients AS i
                             INNER JOIN recipe_has_ingredients AS rhi
                             ON i.id_ingredient = rhi.ingredient_id
-                            WHERE rhi.recipe_id = ${id}`, (err, result, fields) => {
+                            WHERE rhi.recipe_id = ?`, [id], (err, result, fields) => {
                                 
                     if (err) reject(err);
                     resolve(result);
@@ -157,13 +156,13 @@ module.exports = {
         return new Promise((resolve, reject) => {
             con.connect((err) => {
                 if (err) reject(err);
-                con.query(`SELECT id_tool FROM tools WHERE tool=${tool}`, (err, result, fields) => {
+                con.query(`SELECT id_tool FROM tools WHERE tool=?`, [tool], (err, result, fields) => {
                     if (err) reject(err);
 
                     if (result.length != 0)
                     {
                         con.query(`INSERT INTO recipe_has_tools(tool_id, recipe_id)
-                                    VALUES (${result.id_tool}, ${recipe_id})`, (err, result, fields) => {
+                                    VALUES (?, ?)`, [result.id_tool, recipe_id], (err, result, fields) => {
                             resolve(result);
                         });
                     }
@@ -183,7 +182,7 @@ module.exports = {
                 con.query(`SELECT tool FROM tools AS t
                             INNER JOIN recipe_has_tools AS rht
                             ON t.id_tool = rht.tool_id
-                            WHERE rht.recipe_id = ${id}`, (err, result, fields) => {
+                            WHERE rht.recipe_id = ?`, [id], (err, result, fields) => {
                     if (err) reject(err);
                     resolve(result);
                 })
@@ -198,14 +197,14 @@ module.exports = {
 
                 if (where !== "")
                 {
-                    con.query(`SELECT ${values} FROM ${table} WHERE ${where}`, (err, result, fields) => {
+                    con.query(`SELECT ? FROM ? WHERE ?`, [values, table, where], (err, result, fields) => {
                         if (err) reject(err);
                         resolve(result);
                     });
                 }
                 else
                 {
-                    con.query(`SELECT ${values} FROM ${table}`, (err, result, fields) => {
+                    con.query(`SELECT ? FROM ?`, [values, table], (err, result, fields) => {
                         if (err) reject(err);
                         resolve(result);
                     });
@@ -225,9 +224,9 @@ module.exports = {
                     values[1] = passwordHash.generate(values[1]);
                 }
 
-                let query = `INSERT INTO ${table}(${columns}) VALUES (?)`;
+                let query = `INSERT INTO ?(?) VALUES (?)`;
                 
-                con.query(query, [values], (err, result, fields) => {
+                con.query(query, [table, columns, values], (err, result, fields) => {
                     if (err) reject(err);
                     resolve(result);
                 });
@@ -240,8 +239,8 @@ module.exports = {
             con.connect(function(err) {
                 if (err) reject(err);
 
-                let query = `DELETE FROM ${table} WHERE ${where}`;
-                con.query(query, function (err, result) {
+                let query = `DELETE FROM ? WHERE ?`;
+                con.query(query, [table, where], function (err, result) {
                     if (err) reject(err);
                     resolve(result);
                 });
@@ -254,8 +253,8 @@ module.exports = {
             con.connect(function(err) {
                 if (err) reject(err);
 
-                var query = `UPDATE ${table} SET ${updates} WHERE ${where}`;
-                con.query(query, function (err, result) {
+                var query = `UPDATE ? SET ? WHERE ?`;
+                con.query(query, [table, updates, where], function (err, result) {
                     if (err) reject(err);
                     resolve(result);
                 });
@@ -318,8 +317,8 @@ module.exports = {
                 return
             }
 
-            var query = `UPDATE ${table} SET ${update} WHERE ${where}`;
-            con.query(query, (err, result) => {
+            var query = `UPDATE ? SET ? WHERE ?`;
+            con.query(query, [table, update, where], (err, result) => {
                 if (err)
                 {
                     res.status(404);

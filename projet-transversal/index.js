@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const api = require('./models/requests');
+const config = require('./config/config')
+const eJwt = require('express-jwt');
 
 const app = express();
 
@@ -10,24 +12,42 @@ var urlencodedParser = bodyParser.urlencoded({
 app.use(urlencodedParser);
 app.use(bodyParser.json());
 
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+});
+
 app.post('/auth', (req, res) => {
 
     var email    = req.body.email,
         password = req.body.password;
 
-    api.connectUser(email, password).then((token) => {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    
+    if (re.test(String(email).toLowerCase()) && password.length >= 6)
+    {
+        api.connectUser(email, password).then((token) => {
         res.status(200);
         res.send(token);
-    })
-    .catch((err) => {
-        res.status(404);
-        res.send(err);
-    });
+        })
+        .catch((err) => {
+            res.status(404);
+            res.send(err);
+        });
+    }
+    else
+    {
+        res.status(400);
+        res.send("Email or password incorrect")
+    }
 })
 .post('/register', (req, res) => {
     postRequest(req, res, "users", "email, password");
 })
-.post('/order', (req, res) => {
+.post('/order', eJwt({secret: config.secret}), (req, res) => {
 
     var user_id  = req.body.user_id,
         box_id   = req.body.box_id,
