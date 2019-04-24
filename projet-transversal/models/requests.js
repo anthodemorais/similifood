@@ -1,40 +1,3 @@
-// getUsers() -> [{id, firstname, lastname, email}, ...]
-// getUserById(id) -> {firstname, lastname, email}
-// userExists(email, password) -> Bool
-// connectUser(email, password)
-// addUser(email, password) -> ()
-// orderBox(id, user_id, adress, number, date)
-
-// getBoxes() -> [{id, name, price, description}, ...]
-// addBox(name, price, description) -> ()
-// addFeedback(box_id, content, user_id)
-// getFeedbacks(box_id) -> [[content, user_id], [content2, user_id], ...]
-// addRecipe(name, steps, preparation, cook, difficulty) -> ()
-// getRecipes() -> [{id, name, steps, preparation, cook, difficulty}, ...]
-// getRecipeById(id) -> [{id, name, steps, preparation, cook, difficulty}, ...]
-// addIngredientForRecipe(recipe_id, ingredient)
-// getIngredientsForRecipe(id) -> [ingredient, ...]
-// addToolForRecipe(recipe_id, tool)
-// getToolsForRecipe(id) -> [tool, ...]
-// getIngredientId(ingredient) -> (id)
-// getToolId(tool) -> (id)
-
-// addIngredient(ingredient) -> ()
-// getIngredient(id) -> (ingredient)
-// addTool(tool) -> ()
-// getTool(id) -> (tool)
-// updateUser(id, newMail, newPassword) -> ()
-// updateBox(id, newName, newPrice, newDescription) -> ()
-// updateFeedback(id, box_id, content, user_id)
-// updateRecipe(id, name, steps, preparation, cook, difficulty) -> ()
-// deleteUser(id)
-// deleteOrder(id)
-// deleteBox(id)
-// deleteFeedback(id)
-// deleteRecipe(id)
-// deleteIngredientForRecipe(recipe_id, ingredient_id)
-// deleteToolForRecipe(recipe_id, tool_id)
-
 const mysql = require('mysql');
 const passwordHash = require("password-hash");
 const jwt = require('jwt-simple');
@@ -276,7 +239,7 @@ module.exports = {
             res.send(result);
         })
         .catch((err) => {
-            res.status(404);
+            res.status(500);
             res.send(err);
         });
     },
@@ -287,7 +250,7 @@ module.exports = {
             res.send(result);
         })
         .catch((err) => {
-            res.status(404);
+            res.status(500);
             res.send(err);
         });
     },
@@ -321,7 +284,7 @@ module.exports = {
             con.query(query, [table, update, where], (err, result) => {
                 if (err)
                 {
-                    res.status(404);
+                    res.status(500);
                     res.send(err);
                     return
                 }
@@ -338,7 +301,7 @@ module.exports = {
             res.send(result);
         })
         .catch((err) => {
-            res.status(404);
+            res.status(500);
             res.send(result);
         })
     }

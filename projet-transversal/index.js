@@ -34,7 +34,7 @@ app.post('/auth', (req, res) => {
         res.send(token);
         })
         .catch((err) => {
-            res.status(404);
+            res.status(500);
             res.send(err);
         });
     }
@@ -59,32 +59,36 @@ app.post('/auth', (req, res) => {
         res.send(result);
     })
     .catch((err) => {
-        res.status(404);
+        res.status(500);
         res.send(err);
     });
 })
 .get('/products', (req, res) => {
     api.getRequest(req, res, "boxes", "*");
 })
-.post('/products', (req, res) => {
+.post('/products', eJwt({secret: config.secret}), (req, res) => {
+    if (!req.user.admin) return res.sendStatus(401);
     api.postRequest(req, res, "boxes", "name, price, description");
 })
-.post('/feedback', (req, res) => {
+.post('/feedback', eJwt({secret: config.secret}), (req, res) => {
     api.postRequest(req, res, "feedbacks", "content, user_id, box_id");
 })
 .get('/feedbacks/:box_id', (req, res) => {
     api.getRequest(req, res, "feedbacks", "*", `box_id=${req.params.box_id}`);
 })
-.post('/recipe', (req, res) => {
+.post('/recipe', eJwt({secret: config.secret}), (req, res) => {
+    if (!req.user.admin) return res.sendStatus(401);    
     api.postRequest(req, res, "recipes", "name, steps, preparation_time, cook_time, difficulty");
 })
 .get('/recipes/:id', (req, res) => {
     api.getRequest(req, res, "recipes", "*", `id_recipe=${req.params.id}`);
 })
-.post('/recipes/ingredients/:recipe_id', (req, res) => {
+.post('/recipes/ingredients/:recipe_id', eJwt({secret: config.secret}), (req, res) => {
+    if (!req.user.admin) return res.sendStatus(401);
     api.addIngredientForRecipe(req.params.recipe_id, req.body.ingredient, req.body.quantity);
 })
-.post('/recipes/tools/:recipe_id', (req, res) => {
+.post('/recipes/tools/:recipe_id', eJwt({secret: config.secret}), (req, res) => {
+    if (!req.user.admin) return res.sendStatus(401);
     api.addToolForRecipe(req.params.recipe_id, req.body.tool);
 })
 .get('/recipes/:recipe_id', (req, res) => {
@@ -93,37 +97,43 @@ app.post('/auth', (req, res) => {
 .get('/recipes/:recipe_id', (req, res) => {
     api.getToolsForRecipe(req.params.recipe_id);
 })
-.put('/user/:id', (req, res) => {
+.put('/user/:id', eJwt({secret: config.secret}), (req, res) => {
     api.putRequest(req, res, "users", `id_user=${req.params.id}`);
 })
-.put('/products/:id', (req, res) => {
+.put('/products/:id', eJwt({secret: config.secret}), (req, res) => {
+    if (!req.user.admin) return res.sendStatus(401);
     api.putRequest(req, res, "boxes", `id_box=${req.params.id}`)
 })
-.put('/feedbacks/:id', (req, res) => {
+.put('/feedbacks/:id', eJwt({secret: config.secret}), (req, res) => {
     api.putRequest(req, res, "feedbacks", `id_feedback=${req.params.id}`)
 })
-.put('/recipe/:id', (req, res) => {
+.put('/recipe/:id', eJwt({secret: config.secret}), (req, res) => {
+    if (!req.user.admin) return res.sendStatus(401);
     api.putRequest(req, res, "recipes", `id_recipe=${req.params.id}`);
 })
-.delete('/user/:id', (req, res) => {
+.delete('/user/:id', eJwt({secret: config.secret}), (req, res) => {
     api.deleteRequest(req, res, "users", `id_user=${req.params.id}`)
 })
-.delete('/order/:id', (req, res) => {
+.delete('/order/:id', eJwt({secret: config.secret}), (req, res) => {
     api.deleteRequest(req, res, "orders", `id_order=${req.params.id}`)
 })
-.delete('/products/:id', (req, res) => {
+.delete('/products/:id', eJwt({secret: config.secret}), (req, res) => {
+    if (!req.user.admin) return res.sendStatus(401);
     api.deleteRequest(req, res, "boxes", `id_box=${req.params.id}`)
 })
-.delete('/feedbacks/:id', (req, res) => {
+.delete('/feedbacks/:id', eJwt({secret: config.secret}), (req, res) => {
     api.deleteRequest(req, res, "feedbacks", `id_feedback=${req.params.id}`)
 })
-.delete('/recipe/:id', (req, res) => {
+.delete('/recipe/:id', eJwt({secret: config.secret}), (req, res) => {
+    if (!req.user.admin) return res.sendStatus(401);
     api.deleteRequest(req, res, "recipes", `id_recipes=${req.params.id}`)
 })
-.delete('/recipes/:id/ingredients/:id_ingredient', (req, res) => {
+.delete('/recipes/:id/ingredients/:id_ingredient', eJwt({secret: config.secret}), (req, res) => {
+    if (!req.user.admin) return res.sendStatus(401);
     api.deleteRequest(req, res, "recipe_has_ingredients", `recipe_id=${req.params.id} AND ingredient_id=${req.params.id_ingredient}`)
 })
-.delete('/recipes/:id/tools/:id_tool', (req, res) => {
+.delete('/recipes/:id/tools/:id_tool', eJwt({secret: config.secret}), (req, res) => {
+    if (!req.user.admin) return res.sendStatus(401);
     api.deleteRequest(req, res, "recipe_has_tools", `recipe_id=${req.params.id} AND ingredient_id=${req.params.id_tool}`)
 })
 
