@@ -8,15 +8,16 @@ exports.default = (app, con) => {
         services.getRequest(req, res, con, "boxes", "*");
     })
     .post('/products', eJwt({secret: config.secret}), (req, res) => {
-        if (!req.user.admin) return res.sendStatus(401);
+        console.log(req.session.admin);
+        if (!req.session.admin) return res.sendStatus(401);
         services.postRequest(req, res, con, "boxes", "name, price, description");
     })
     .put('/products/:id', eJwt({secret: config.secret}), (req, res) => {
-        if (!req.user.admin) return res.sendStatus(401);
+        if (!req.session.admin) return res.sendStatus(401);
         services.putRequest(req, res, con, "boxes", `id_box=${req.params.id}`)
     })
     .delete('/products/:id', eJwt({secret: config.secret}), (req, res) => {
-        if (!req.user.admin) return res.sendStatus(401);
+        if (!req.session.admin) return res.sendStatus(401);
         services.deleteRequest(req, res, con, "boxes", `id_box=${req.params.id}`)
     });
 

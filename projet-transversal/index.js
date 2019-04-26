@@ -1,9 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const api = require('./models/requests');
-const config = require('./config/config')
-const eJwt = require('express-jwt');
 const mysql = require('mysql');
+const session = require('express-session');
+const config = require('./config/config.js');
+
 
   // Host	localhost
   // Port	8889
@@ -11,7 +11,15 @@ const mysql = require('mysql');
   // Password	root
   // Socket	/Applications/MAMP/tmp/mysql/mysql.sock
   
-const con = mysql.createConnection({
+// const con = mysql.createConnection({
+//       host: "localhost",
+//       user: "root",
+//       password: "root",
+//       port: "8889",
+//       database: "projetTransversal"
+// });
+
+const con = mysql.createPool({
       host: "localhost",
       user: "root",
       password: "root",
@@ -35,11 +43,19 @@ app.use(function (req, res, next) {
     next();
 });
 
-require('./routes/user')(app, con);
-require('./routes/order')(app, con);
-require('./routes/product')(app, con);
-require('./routes/recipe')(app, con);
-require('./routes/feedback')(app, con);
+app.set('trust proxy', 1);
+app.use(session({
+  secret: config.secret,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
 
-var port = 8000;
+require('./routes/user').default(app, con);
+require('./routes/order').default(app, con);
+require('./routes/product').default(app, con);
+require('./routes/recipe').default(app, con);
+require('./routes/feedback').default(app, con);
+
+const port = 8000;
 app.listen(port, () => console.log(`Listening on port ${port}`));

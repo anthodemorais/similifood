@@ -1,98 +1,74 @@
-const mysql = require('mysql');
+const passwordHash = require("password-hash");
 
-  // Host	localhost
-  // Port	8889
-  // User	root
-  // Password	root
-  // Socket	/Applications/MAMP/tmp/mysql/mysql.sock
-  
-var con = mysql.createConnection({
-      host: "localhost",
-      user: "root",
-      password: "root",
-      port: "8889",
-      database: "projetTransversal"
-});
+class Services {
 
-module.exports = {
-
-    getFromTable: (con, values, table, where="") => {
+    getFromTable(con, values, table, where="") {
         return new Promise((resolve, reject) => {
-            con.connect((err) => {
-                if (err) reject(err);
+            if (where !== "")
+            {
+                con.query(`SELECT ${values} FROM ${table} WHERE ${where}`, (err, result, fields) => {
+                    if (err) reject(err);
+                    resolve(result);
+                });
+            }
+            else
+            {
+                con.query(`SELECT ${values} FROM ${table}`, (err, result, fields) => {
+                    if (err) reject(err);
+                    resolve(result);
+                });
+            }
+            
+        });
+    }
 
-                if (where !== "")
-                {
-                    con.query(`SELECT ? FROM ? WHERE ?`, [values, table, where], (err, result, fields) => {
-                        if (err) reject(err);
-                        resolve(result);
-                    });
-                }
-                else
-                {
-                    con.query(`SELECT ? FROM ?`, [values, table], (err, result, fields) => {
-                        if (err) reject(err);
-                        resolve(result);
-                    });
-                }
-                
+    addIntoTable(con, table, columns, values) {
+        return new Promise((resolve, reject) => {
+            if (table == "users")
+            {
+                values[1] = passwordHash.generate(values[1]);
+            }
+
+            let query = `INSERT INTO ${table}(`;
+
+            for(var key in columns) {
+                query += columns[key];
+            }
+
+            query += `) VALUES(?)`
+            
+            con.query(query, [values], (err, result, fields) => {
+                if (err) reject(err);
+                resolve(result);
             });
         });
-    },
+    }
 
-    addIntoTable: (con, table, columns, values) => {
+    deleteColumn(con, table, where) {
         return new Promise((resolve, reject) => {
-            con.connect((err) => {
+            let query = `DELETE FROM ${table} WHERE ${where}`;
+            con.query(query, (err, result) => {
                 if (err) reject(err);
-
-                if (table == "users")
-                {
-                    values[1] = passwordHash.generate(values[1]);
-                }
-
-                let query = `INSERT INTO ?(?) VALUES (?)`;
-                
-                con.query(query, [table, columns, values], (err, result, fields) => {
-                    if (err) reject(err);
-                    resolve(result);
-                });
+                resolve(result);
             });
         });
-    },
+    }
 
-    deleteColumn: (con, table, where) => {
+    updateColumn(con, table, updates, where) {
         return new Promise((resolve, reject) => {
-            con.connect(function(err) {
+            var query = `UPDATE ? SET ? WHERE ?`;
+            con.query(query, [table, updates, where], function (err, result) {
                 if (err) reject(err);
-
-                let query = `DELETE FROM ? WHERE ?`;
-                con.query(query, [table, where], function (err, result) {
-                    if (err) reject(err);
-                    resolve(result);
-                });
+                resolve(result);
             });
-        })
-    },
+        });
+    }
 
-    updateColumn: (con, table, updates, where) => {
-        return new Promise((resolve, reject) => {
-            con.connect(function(err) {
-                if (err) reject(err);
-
-                var query = `UPDATE ? SET ? WHERE ?`;
-                con.query(query, [table, updates, where], function (err, result) {
-                    if (err) reject(err);
-                    resolve(result);
-                });
-            });
-        })
-    },
-
-    postRequest: (req, res, con, table, columns) => {
+    postRequest(req, res, con, table, columns) {
     
         var values = [];
     
-        for (key in req.body)
+        for (var key in req.body)
         {
             values.push(req.body[key]);
         }
@@ -105,22 +81,24 @@ module.exports = {
             res.status(500);
             res.send(err);
         });
-    },
+    }
     
-    getRequest: (req, res, con, table, values, where="") => {
+    getRequest(req, res, con, table, values, where="") {
         return new Promise((resolve, reject) => {
 
             this.getFromTable(con, values, table, where).then((result) => {
-                resolve(result);
+                res.status(200);
+                res.send(result);
             })
             .catch((err) => {
-                reject(err);
+                res.status(500);
+                res.send(err);
             });
 
         });
-    },
+    }
 
-    putRequest: (req, res, con, table, where) => {
+    putRequest(req, res, con, table, where) {
 
         var updates = [];
         for (var key in req.body)
@@ -137,37 +115,39 @@ module.exports = {
         }
         var update = updates.join(", ");
 
-        con.connect((err) => {
+        var query = `UPDATE ? SET ? WHERE ?`;
+        con.query(query, [table, update, where], (err, result) => {
             if (err)
             {
                 res.status(500);
                 res.send(err);
                 return
             }
-
-            var query = `UPDATE ? SET ? WHERE ?`;
-            con.query(query, [table, update, where], (err, result) => {
-                if (err)
-                {
-                    res.status(500);
-                    res.send(err);
-                    return
-                }
-                res.status(200);
-                res.send(result);
-                return
-            });
+            res.status(200);
+            res.send(result);
+            return
         });
-    },
+    }
 
-    deleteRequest: (req, res, con, table, where) => {
+    deleteRequest(req, res, con, table, where) {
         this.deleteColumn(con, table, where).then((result) => {
             res.status(200);
             res.send(result);
         })
         .catch((err) => {
             res.status(500);
-            res.send(result);
+            res.send(err);
         })
     }
+
+    isAdmin(con, user_id) {
+        return new Promise((resolve, reject) => {
+            con.query(`SELECT admin FROM users WHERE id_user=${user_id}`, function (err, result) {
+                if (err) reject(err);
+                resolve(result[0].admin);
+            });
+        });
+    }
 }
+
+module.exports = new Services();

@@ -15,34 +15,38 @@ exports.default = (app, con) => {
         
         if (re.test(String(email).toLowerCase()) && password.length >= 6)
         {
-
-            con.connect((err) => {
+            con.query(`SELECT * FROM users WHERE email=?`, [email], (err, result, fields) => {
                 if (err) {
                     res.status(500);
                     res.send(err);
                 }
-                con.query(`SELECT * FROM users WHERE email=?`, [email], (err, result, fields) => {
-                    if (err) {
-                        res.status(500);
-                        res.send(err);
-                    }
 
-                    if (result.length != 0)
-                    {
-                        if (!passwordHash.verify(password, result[0].password))
-                        {
-                            reject("Email or password incorrect");
-                        }
-                        let token = jwt.encode(this, config.secret);
-                        res.status(200);
-                        res.send(token);
-                    }
-                    else
+                if (result.length != 0)
+                {
+                    if (!passwordHash.verify(password, result[0].password))
                     {
                         res.status(500);
                         res.send("Email or password incorrect");
                     }
-                });
+
+                    if (result[0].admin == 1)
+                    {
+                        req.session.admin = true;
+                    }
+                    else
+                    {
+                        req.session.admin = false;
+                    }
+
+                    let token = jwt.encode(this, config.secret);
+                    res.status(200);
+                    res.send(token);
+                }
+                else
+                {
+                    res.status(500);
+                    res.send("Email or password incorrect");
+                }
             });
         }
         else
@@ -52,13 +56,13 @@ exports.default = (app, con) => {
         }
     })
     .post('/register', (req, res) => {
-        services.postRequest(req, res, "users", "email, password");
+        services.postRequest(req, res, con, "users", "email, password");
     })
     .put('/user/:id', eJwt({secret: config.secret}), (req, res) => {
-        services.putRequest(req, res, "users", `id_user=${req.params.id}`);
+        services.putRequest(req, res, con, "users", `id_user=${req.params.id}`);
     })
     .delete('/user/:id', eJwt({secret: config.secret}), (req, res) => {
-        services.deleteRequest(req, res, "users", `id_user=${req.params.id}`)
+        services.deleteRequest(req, res, con, "users", `id_user=${req.params.id}`)
     });
     
 }
