@@ -1,4 +1,5 @@
 const passwordHash = require("password-hash");
+const sanitizer = require('sanitizer');
 
 class Services {
 
@@ -70,7 +71,7 @@ class Services {
     
         for (var key in req.body)
         {
-            values.push(req.body[key]);
+            values.push(sanitizer.sanitize(req.body[key]));
         }
     
         this.addIntoTable(con, table, columns, values).then((result) => {
@@ -105,18 +106,18 @@ class Services {
         {
             if (key == "password")
             {
-                var password = passwordHash.generate(req.body[key]);
+                var password = passwordHash.generate(sanitizer.sanitize(req.body[key]));
                 updates.push(key + "='" + password + "'")
             }
             else
             {
-                updates.push(key + "='" + req.body[key] + "'")
+                updates.push(key + "='" + sanitizer.sanitize(req.body[key]) + "'")
             }
         }
         var update = updates.join(", ");
 
-        var query = `UPDATE ? SET ? WHERE ?`;
-        con.query(query, [table, update, where], (err, result) => {
+        var query = `UPDATE ${table} SET ${update} WHERE ${where}`;
+        con.query(query, (err, result) => {
             if (err)
             {
                 res.status(500);
@@ -138,15 +139,6 @@ class Services {
             res.status(500);
             res.send(err);
         })
-    }
-
-    isAdmin(con, user_id) {
-        return new Promise((resolve, reject) => {
-            con.query(`SELECT admin FROM users WHERE id_user=${user_id}`, function (err, result) {
-                if (err) reject(err);
-                resolve(result[0].admin);
-            });
-        });
     }
 }
 

@@ -3,13 +3,14 @@ const passwordHash = require("password-hash");
 const jwt = require('jwt-simple');
 const config = require('../config/config.js');
 const eJwt = require('express-jwt');
+const sanitizer = require('sanitizer');
 
 exports.default = (app, con) => { 
 
     app.post('/auth', (req, res) => {
 
-        var email    = req.body.email,
-            password = req.body.password;
+        var email    = sanitizer.sanitize(req.body.email),
+            password = sanitizer.sanitize(req.body.password);
     
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         
@@ -59,10 +60,10 @@ exports.default = (app, con) => {
         services.postRequest(req, res, con, "users", "email, password");
     })
     .put('/user/:id', eJwt({secret: config.secret}), (req, res) => {
-        services.putRequest(req, res, con, "users", `id_user=${req.params.id}`);
+        services.putRequest(req, res, con, "users", `id_user=${sanitizer.sanitize(req.params.id)}`);
     })
     .delete('/user/:id', eJwt({secret: config.secret}), (req, res) => {
-        services.deleteRequest(req, res, con, "users", `id_user=${req.params.id}`)
+        services.deleteRequest(req, res, con, "users", `id_user=${sanitizer.sanitize(req.params.id)}`)
     });
     
 }

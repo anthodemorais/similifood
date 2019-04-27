@@ -1,15 +1,16 @@
 const services = require('../services/requests');
 const eJwt = require('express-jwt');
 const config = require('../config/config.js');
+const sanitizer = require('sanitizer');
 
 exports.default = (app, con) => { 
 
     app.post('/order', eJwt({secret: config.secret}), (req, res) => {
 
-    var user_id  = req.body.user_id,
-        box_id   = req.body.box_id,
-        adress   = req.body.adress,
-        quantity = req.body.quantity;
+    var user_id  = sanitizer.sanitize(req.body.user_id),
+        box_id   = sanitizer.sanitize(req.body.box_id),
+        adress   = sanitizer.sanitize(req.body.adress),
+        quantity = sanitizer.sanitize(req.body.quantity);
 
         var date_of_order = new Date();
         var dd = String(date_of_order.getDate()).padStart(2, '0');
@@ -29,7 +30,7 @@ exports.default = (app, con) => {
         });
     })
     .delete('/order/:id', eJwt({secret: config.secret}), (req, res) => {
-        services.deleteRequest(req, res, con, "orders", `id_order=${req.params.id}`)
+        services.deleteRequest(req, res, con, "orders", `id_order=${sanitizer.sanitize(req.params.id)}`)
     });
 
 }
