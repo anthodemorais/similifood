@@ -56,6 +56,7 @@ require('./routes/order').default(app, con);
 require('./routes/product').default(app, con);
 require('./routes/recipe').default(app, con);
 require('./routes/feedback').default(app, con);
+require('./routes/payment').default(app);
 
 const port = 8000;
 app.listen(port, () => console.log(`Listening on port ${port}`));
