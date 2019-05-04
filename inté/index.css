@@ -1,5 +1,489 @@
 /* blue : #1B264F red : #EB6543 */
 body
 {
-    padding: 10px;
+    margin: 0px;
+}
+
+section
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.banner
+{
+    position: relative;
+    width: 100%;
+    height: 85vh;
+    background-image: url(./IMAGES/BANNER.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    font-family: "Zing Rust";
+    color: #1B264F;
+    box-shadow: 0px 0px 2px 0px #DDD;
+}
+
+.banner img
+{
+    position: absolute;
+    width: 50px;
+    top: 10px;
+    left: 10px;
+}
+
+.banner div
+{
+    position: absolute;
+    bottom: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.banner span
+{
+    font-size: 40px;
+}
+
+.promotion
+{
+    text-shadow: 0px 7px 0px #EB6543;
+}
+
+.promotion strong
+{
+    font-size: 120px;
+}
+
+.description
+{
+    line-height: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.description strong
+{
+    font-size: 80px;
+}
+
+.container
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    font-family: "Zing Rust";
+    color: #1B264F;
+}
+
+.products
+{
+    padding-bottom: 140px;
+}
+
+.products > strong
+{
+    margin: 70px;
+    font-size: 30px;
+}
+
+.products > div
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.product
+{
+    width: 30%;
+    border-radius: 10px;
+    margin: 20px;
+    position: relative;
+}
+
+.product img
+{
+    width: 100%;
+    height: 100%;
+    border: 2px solid #1B264F;
+    border-radius: 10px;
+}
+
+.product button
+{
+    position: absolute;
+    bottom: 30px;
+    left: 25%;
+}
+
+.product:nth-child(1) img
+{
+    box-shadow: -10px 10px 0px 0px #EB6543;
+}
+
+.product:nth-child(2) img
+{
+    box-shadow: 10px 10px 0px 0px #EB6543;
+}
+
+.presentation
+{
+    height: 200vh;
+    width: 100%;
+    background-color: #BBB
+}
+
+.presentation
+{
+    height: 200vh;
+    width: 100%;
+    background-color: #BBB;
+}
+
+.feedbacks
+{
+    height: max-content;
+    padding-bottom: 50px;
+}
+
+.feedbacks .title
+{
+    margin: 70px;
+}
+
+.feedbacks .title div
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Verdana, sans-serif;
+}
+
+.feedbacks .title > strong
+{
+    font-size: 30px;
+}
+
+.feedback
+{
+    font-family: Verdana, sans-serif;
+    width: 80%;
+    display: flex;
+    margin-bottom: 50px;
+}
+
+.avatar
+{
+    margin-right: 30px;
+}
+
+.profile_pic
+{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid #1B264F;
+}
+
+.notation
+{
+    width: 100px;
+}
+
+.separator
+{
+    width: 70%;
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 2px solid #1B264F;
+    padding: 0;
+}
+
+.newsletter
+{
+    display: flex;
+    width: 100%;
+    color: #1B264F;
+    margin-top: 50px;
+}
+
+.newsletter > div
+{
+    width: 50%;
+}
+
+.img-container
+{
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+}
+
+.dialog
+{
+    width: 50%;
+    margin-right: 20%;
+}
+
+.dog-reading
+{
+    margin-top: -20%;
+    width: 100%;
+}
+
+.subscribe
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+form
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.subscribe .title
+{
+    font-family: "Zing Rust";
+    font-size: 50px;
+    line-height: 75px;
+}
+
+.subscribe .title strong
+{
+    font-size: 80px;
+}
+
+.subscribe p
+{
+    font-family: Verdana;
+    font-size: 15px;
+    padding: 0px 15%;
+    margin-top: 30px;
+}
+
+.subscribe > strong
+{
+    font-size: 35px;
+    font-family: "Zing Rust";
+    padding: 0px 15%;
+    line-height: 50px;
+    margin: 30px 0px;
+}
+
+.subscribe form label
+{
+    font-family: Verdana;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.subscribe form input
+{
+    font-family: Verdana;
+    font-size: 15px;
+    height: 30px;
+    width: 300px;
+    border-radius: 10px;
+    margin-top: 15px;
+    border: 2px solid #1B264F;
+    padding-left: 5px;
+}
+
+.subscribe form input:focus
+{
+    outline: 0;
+}
+
+.subscribe form button
+{
+    display: block;
+    margin: auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+a{
+    text-decoration: none;
+    color: #1B264F;
+}
+footer{
+    background-color: #1B264F;
+    padding: 2% 4%;
+    position: static;
+    bottom: 0;
+    color: white;
+}
+h4{
+    font-size: 25px;
+    text-shadow: 0px 4px 0px #EB6543;
+    color: #FFF;
+}
+header{
+    margin: 1%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-family: Verdana;
+}
+.imgbag, .imghome, .imglogout{
+    width: 60px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.imgbag{
+    width: 45px;
+}
+a > img{
+    cursor: pointer;
+}
+.blod{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    color: #20284D;
+    cursor: pointer;
+}
+/*Début Grid*/
+.logotop{
+    width: 15%;
+}
+menu{
+    width: 30%;
+    margin: 0;
+    padding: 0;
+}
+header > div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 30%;
+}
+/*Fin Grid et début Flex*/
+.flex{
+	display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+/*Fin Flex*/
+li{
+	list-style-type: none;
+	list-style: none;
+	display: inline;
+}
+ul{
+	display: inline-block;
+	list-style-type:none;
+}
+/* grid-area: 2/3/3/4; */
+.cap{
+	text-transform: capitalize;
+}
+/* Footer > Div.first */
+.first{
+    font-family: "Zing Rust";
+    display: grid;
+	grid-template-columns: 33% 34% 33%;
+    grid-template-rows: 20% 20% 20% 20% 20%;
+}
+.follow{
+    grid-area: 1/1/6/2;
+    text-align: right;
+}
+.follow > h4{
+    padding-right: 6.5%;
+}
+.delivery{
+    grid-area: 1/2/6/3;
+    text-align: center;
+}
+.payment{
+    grid-area: 1/3/6/4;
+}
+/* Footer > Div.second */
+.second{
+    display: grid;
+	grid-template-columns: 20% 20% 20% 20% 20%;
+    grid-template-rows: 1fr;
+    font-family: Verdana;
+    margin: 40px 0px;
+}
+.second > div{
+    display: flex;
+    flex-direction: column;
+}
+.second > div > div{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.second > div span:not(.title){
+    margin-top: 15px;
+    font-size: 12px;
+}
+.second > img{
+    grid-area: 1/5/2/6;
+}
+#compte{
+    grid-area: 1/1/2/2;
+}
+#menu{
+    grid-area: 1/2/2/3;
+}
+#propos{
+    grid-area: 1/3/2/4;
+}
+#contact{
+    grid-area: 1/4/2/5;
+}
+.title{
+    text-transform: uppercase;
+}
+.fac, .int, .twi, .time, .transport{
+    width: 75px;
+    height: 75px;
+}
+.pp{
+    width: 90px;
+    height: 85px;
+}
+.visa{
+    width: 90px;
+    height: 80px;
+}
+.title, .blod{
+    font-weight: bold;
+}
+.legal{
+    font-family: Verdana;
+    font-size: 12px;
+    margin-top: 20px;
 }
