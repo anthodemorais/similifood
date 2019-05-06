@@ -328,10 +328,6 @@ form
 
 
 
-a{
-    text-decoration: none;
-    color: #1B264F;
-}
 footer{
     background-color: #1B264F;
     padding: 2% 4%;
@@ -360,9 +356,6 @@ header{
 .imgbag{
     width: 45px;
 }
-a > img{
-    cursor: pointer;
-}
 .blod{
     display: flex;
     align-items: center;
@@ -370,6 +363,7 @@ a > img{
     flex-direction: column;
     text-align: center;
     color: #20284D;
+    cursor: pointer;
     cursor: pointer;
 }
 /*Début Grid*/
