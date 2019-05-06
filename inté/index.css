@@ -22,15 +22,28 @@ section
     background-repeat: no-repeat;
     font-family: "Zing Rust";
     color: #1B264F;
-    box-shadow: 0px 0px 2px 0px #DDD;
+    margin-top: 150px;
 }
 
-.banner img
+.accessibilityIcon
 {
-    position: absolute;
+    position: fixed;
     width: 50px;
-    top: 10px;
+    top: 150px;
     left: 10px;
+    border: 0;
+    background: none;
+    z-index: 5;
+}
+
+.accessibilityIcon img
+{
+    width: 100%;
+}
+
+.accessibilityIcon:focus
+{
+    outline: 2px solid #1B264F;
 }
 
 .banner div
@@ -341,11 +354,19 @@ h4{
     color: #FFF;
 }
 header{
-    margin: 1%;
     display: flex;
     justify-content: space-around;
     align-items: center;
     font-family: Verdana;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    z-index: 5;
+    background-color: white;
+    height: min-content;
+    padding-top: 1%;
+    box-shadow: 0px 0px 2px 0px #DDD;
 }
 .imgbag, .imghome, .imglogout{
     width: 60px;
