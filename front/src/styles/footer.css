@@ -48,7 +48,7 @@ h4{
     justify-content: space-between;
     flex-direction: column;
 }
-.second > div span:not(.title){
+.second > div a{
     margin-top: 15px;
     font-size: 12px;
 }
@@ -89,4 +89,11 @@ h4{
     font-family: Verdana;
     font-size: 12px;
     margin-top: 20px;
+}
+a{
+    color: white;
+}
+.mail{
+    margin-top: 15px;
+    font-size: 12px;
 }

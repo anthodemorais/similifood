@@ -12,6 +12,11 @@ section
     flex-direction: column;
 }
 
+a
+{
+    text-decoration: none;
+}
+
 .banner
 {
     position: relative;
@@ -23,27 +28,6 @@ section
     font-family: "Zing Rust";
     color: #1B264F;
     margin-top: 150px;
-}
-
-.accessibilityIcon
-{
-    position: fixed;
-    width: 50px;
-    top: 150px;
-    left: 10px;
-    border: 0;
-    background: none;
-    z-index: 5;
-}
-
-.accessibilityIcon img
-{
-    width: 100%;
-}
-
-.accessibilityIcon:focus
-{
-    outline: 2px solid #1B264F;
 }
 
 .banner div

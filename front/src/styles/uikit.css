@@ -37,7 +37,7 @@
     bottom: 0px;
 }
 
-.important:focus
+/* .important:focus:before
 {
-    outline: 2px solid #1B264F;
-}
+    border-color: #EB6543;
+} */

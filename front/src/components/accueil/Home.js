@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import '../styles/uikit.css';
-import '../styles/home.css';
-import dog from '../styles/IMAGES/DOG.png';
-import cat from '../styles/IMAGES/CAT.png';
-import pawstar from '../styles/ICONES/PAWSTAR.svg';
-import readingDog from '../styles/IMAGES/READING_DOG.png';
-import dialogDog from '../styles/IMAGES/DIALOG_DOG.png';
+import '../../styles/uikit.css';
+import '../../styles/home.css';
+import dog from '../../styles/IMAGES/DOG.png';
+import cat from '../../styles/IMAGES/CAT.png';
+import pawstar from '../../styles/ICONES/PAWSTAR.svg';
+import readingDog from '../../styles/IMAGES/READING_DOG.png';
+import dialogDog from '../../styles/IMAGES/DIALOG_DOG.png';
 
 export default class Home extends Component {
 

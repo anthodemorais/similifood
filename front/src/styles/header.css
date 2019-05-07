@@ -67,3 +67,23 @@ ul{
 .cap{
 	text-transform: capitalize;
 }
+.accessibilityIcon
+{
+    position: fixed;
+    width: 70px;
+    top: 150px;
+    left: 10px;
+    border: 0;
+    background: none;
+    z-index: 5;
+}
+
+.accessibilityIcon img
+{
+    width: 100%;
+}
+
+.accessibilityIcon:focus
+{
+    outline: 2px solid #1B264F;
+}
