@@ -1,0 +1,69 @@
+header{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-family: Verdana;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    z-index: 5;
+    background-color: white;
+    height: min-content;
+    padding-top: 1%;
+    box-shadow: 0px 0px 2px 0px #DDD;
+}
+.imgbag, .imghome, .imglogout{
+    width: 60px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.imgbag{
+    width: 45px;
+}
+.blod{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    color: #20284D;
+    cursor: pointer;
+    cursor: pointer;
+}
+/*Début Grid*/
+.logotop{
+    width: 15%;
+}
+menu{
+    width: 30%;
+    margin: 0;
+    padding: 0;
+}
+header > div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 30%;
+}
+/*Fin Grid et début Flex*/
+.flex{
+	display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+/*Fin Flex*/
+li{
+	list-style-type: none;
+	list-style: none;
+	display: inline;
+}
+ul{
+	display: inline-block;
+	list-style-type:none;
+}
+/* grid-area: 2/3/3/4; */
+.cap{
+	text-transform: capitalize;
+}
