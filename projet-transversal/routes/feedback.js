@@ -5,8 +5,11 @@ const sanitizer = require('sanitizer');
 
 exports.default = (app, con) => {
 
-    app.post('/feedback', eJwt({secret: config.secret}), (req, res) => {
+    app.post('/feedbacks', eJwt({secret: config.secret}), (req, res) => {
         services.postRequest(req, res, con, "feedbacks", "content, user_id, box_id");
+    })
+    .get('/feedbacks', (req, res) => {
+        services.getRequest(req, res, con, "feedbacks", "*");
     })
     .get('/feedbacks/:box_id', (req, res) => {
         services.getRequest(req, res, con, "feedbacks", "*", `box_id=${sanitizer.sanitize(req.params.box_id)}`);

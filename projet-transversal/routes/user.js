@@ -7,7 +7,9 @@ const sanitizer = require('sanitizer');
 
 exports.default = (app, con) => { 
 
-    app.post('/auth', (req, res) => {
+    app.get('/user/me', eJwt({secret: config.secret}), (req, res) => {
+        services.getRequest(req, res, con, "users", "email, points", `id_user=${req.session.id_user}`);
+    }).post('/auth', (req, res) => {
 
         var email    = sanitizer.sanitize(req.body.email),
             password = sanitizer.sanitize(req.body.password);
@@ -19,7 +21,7 @@ exports.default = (app, con) => {
             con.query(`SELECT * FROM users WHERE email=?`, [email], (err, result, fields) => {
                 if (err) {
                     res.status(500);
-                    res.send(err);
+                    res.json({error: err});
                 }
 
                 if (result.length != 0)
@@ -27,7 +29,7 @@ exports.default = (app, con) => {
                     if (!passwordHash.verify(password, result[0].password))
                     {
                         res.status(500);
-                        res.send("Email or password incorrect");
+                        res.json({err: "Email or password incorrect"});
                     }
 
                     if (result[0].admin == 1)
@@ -40,20 +42,22 @@ exports.default = (app, con) => {
                     }
 
                     let token = jwt.encode(this, config.secret);
+
+                    req.session.id_user = result.id_user;
                     res.status(200);
-                    res.send(token);
+                    res.json({token: token});
                 }
                 else
                 {
                     res.status(500);
-                    res.send("Email or password incorrect");
+                    res.json({err: "Email or password incorrect"});
                 }
             });
         }
         else
         {
             res.status(400);
-            res.send("Email or password incorrect")
+            res.json({err: "Email or password incorrect"});
         }
     })
     .post('/register', (req, res) => {

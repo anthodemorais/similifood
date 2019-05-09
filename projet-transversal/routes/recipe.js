@@ -18,7 +18,7 @@ exports.default = (app, con) => {
                 
                 if (err) {
                     res.status(500);
-                    res.send(err);
+                    res.json({error: err});
                 }
 
                 result += result2;
@@ -31,13 +31,13 @@ exports.default = (app, con) => {
                             
                 if (err) {
                     res.status(500);
-                    res.send(err);
+                    res.json({error: err});
                 }
 
                 result += result3;
 
                 res.status(200);
-                res.send(result);
+                res.json({result: result});
             })
 
         });        
@@ -47,7 +47,7 @@ exports.default = (app, con) => {
         con.query(`SELECT id_ingredient FROM ingredients WHERE ingredient=?`, [sanitizer.sanitize(req.body.ingredient)], (err, result, fields) => {
             if (err) {
                 res.status(500);
-                res.send(err);
+                res.json({error: err});
             }
 
             if (result.length != 0)
@@ -57,10 +57,10 @@ exports.default = (app, con) => {
 
                     if (err) {
                         res.status(500);
-                        res.send(err);
+                        res.json({error: err});
                     }
                     res.status(200);
-                    res.send(result);
+                    res.json({result: result});
                 });
             }
             else
@@ -71,10 +71,10 @@ exports.default = (app, con) => {
 
                         if (err) {
                             res.status(500);
-                            res.send(err);
+                            res.json({error: err});
                         }
                         res.status(200);
-                        res.send(result3);
+                        res.json({result: result3});
                     });
                 });
             }
@@ -85,7 +85,7 @@ exports.default = (app, con) => {
         con.query(`SELECT id_tool FROM tools WHERE tool=?`, [sanitizer.sanitize(req.body.tool)], (err, result, fields) => {
             if (err) {
                 res.status(500);
-                res.send(err);
+                res.json({error: err});
             }
 
             if (result.length != 0)
@@ -103,10 +103,10 @@ exports.default = (app, con) => {
 
                         if (err) {
                             res.status(500);
-                            res.send(err);
+                            res.json({error: err});
                         }
                         res.status(200);
-                        res.send(result3);
+                        res.json({result: result3});
                     });
                 });
             }

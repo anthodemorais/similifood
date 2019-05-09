@@ -87,3 +87,13 @@ ul{
 {
     outline: 2px solid #1B264F;
 }
+
+.auth
+{
+    text-align: center;
+    width: 100%;
+    font-size: 25px;
+    color: #1B264F;
+    font-family: "Zing Rust";
+    letter-spacing: 3px;
+}

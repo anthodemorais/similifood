@@ -23,10 +23,10 @@ exports.default = (app, con) => {
         con.query(query, [user_id, box_id, adress, date_of_order, quantity], (err, result, fields) => {
             if (err) {
                 res.status(500);
-                res.send(err);
+                res.json({error: err});
             }
             res.status(200);
-            res.send(result);
+            res.json({result: result});
         });
     })
     .delete('/order/:id', eJwt({secret: config.secret}), (req, res) => {

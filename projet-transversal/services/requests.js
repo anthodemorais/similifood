@@ -76,11 +76,11 @@ class Services {
     
         this.addIntoTable(con, table, columns, values).then((result) => {
             res.status(200);
-            res.send(result);
+            res.json({result: result});
         })
         .catch((err) => {
             res.status(500);
-            res.send(err);
+            res.json({error: err});
         });
     }
     
@@ -89,11 +89,11 @@ class Services {
 
             this.getFromTable(con, values, table, where).then((result) => {
                 res.status(200);
-                res.send(result);
+                res.json({result: result});
             })
             .catch((err) => {
                 res.status(500);
-                res.send(err);
+                res.json({error: err});
             });
 
         });
@@ -121,11 +121,11 @@ class Services {
             if (err)
             {
                 res.status(500);
-                res.send(err);
+                res.json({error: err});
                 return
             }
             res.status(200);
-            res.send(result);
+            res.json({result: result});
             return
         });
     }
@@ -133,11 +133,11 @@ class Services {
     deleteRequest(req, res, con, table, where) {
         this.deleteColumn(con, table, where).then((result) => {
             res.status(200);
-            res.send(result);
+            res.json({result: result});
         })
         .catch((err) => {
             res.status(500);
-            res.send(err);
+            res.json({error: err});
         })
     }
 }

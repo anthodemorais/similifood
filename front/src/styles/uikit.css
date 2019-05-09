@@ -41,3 +41,37 @@
 {
     border-color: #EB6543;
 } */
+
+form label
+{
+    font-family: Verdana;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 30px;
+    color: #1B264F;
+}
+
+form input
+{
+    font-family: Verdana;
+    font-size: 15px;
+    height: 30px;
+    width: 300px;
+    border-radius: 10px;
+    margin-top: 15px;
+    border: 2px solid #1B264F;
+    padding-left: 5px;
+}
+
+form input:focus
+{
+    outline: 2px solid #1B264F;
+}
+
+form button
+{
+    display: block;
+    margin: auto;
+    margin-top: 15px;
+}

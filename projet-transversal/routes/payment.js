@@ -21,7 +21,7 @@ exports.default = (app) => {
 
         paymentCreation.then((intent) =>
         {
-            res.send({ client_secret: intent.client_secret });
+            res.json({ client_secret: intent.client_secret });
         });
     });
 
