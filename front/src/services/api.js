@@ -12,8 +12,27 @@ let api = {
                 body: JSON.stringify({email: email, password: password})
             }).then((results) => {
                 results.json().then((json) => {
-                    sessionStorage.setItem("token", json.token)
+                    sessionStorage.setItem("token", json.token);
+                    api.isConnected = true;
                     resolve(json.token);
+                });
+            });
+        });
+    },
+
+    register: (email, password) => {
+        return new Promise((resolve, reject) => {
+            fetch(api.url + 'register', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({email: email, password: password})
+            }).then((results) => {
+                results.json().then((json) => {
+                    api.getToken(email, password).then((token) => {
+                        resolve(token);
+                    })
                 });
             });
         });
