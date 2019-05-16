@@ -2,8 +2,8 @@ import React, {Component} from "react";
 import {BrowserRouter as Router, Route} from "react-router-dom";
 
 import Footer from '../general/Footer'
-import Products from "../products/GetArticles"
-import ProductsPage from "../products/ArticlePage"
+import Products from "../products/Products"
+import Product from "../products/Product"
 import UserInfo from "../account/Profile"
 import UpdatePassword from "../account/UpdatePassword"
 import UpdateUser from "../account/UpdateUsername"
@@ -29,7 +29,7 @@ export default class Routing extends Component {
             <Route exact="exact" path={`/`} component={Home}/>
             {/* page d'articles */}
             <Route exact="exact" path={`/products`} component={Products}/>
-            <Route exact="exact" path={`/products/id`} component={ProductsPage}/>
+            <Route exact="exact" path={`/products/id`} component={Product}/>
             {/* infos utilisateurs */}
             <Route exact="exact" path={`/user/me`} component={UserInfo}/>
             <Route exact="exact" path={`/user/me/update/password`} component={UpdatePassword}/>

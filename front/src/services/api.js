@@ -44,7 +44,7 @@ let api = {
                 method: 'GET'
             }).then((results) => {
                 results.json().then((json) => {
-                    resolve(json);
+                    resolve(json.result);
                 });
             });
         });

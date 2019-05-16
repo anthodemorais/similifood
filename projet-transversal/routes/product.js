@@ -8,6 +8,9 @@ exports.default = (app, con) => {
     app.get('/products', (req, res) => {
         services.getRequest(req, res, con, "boxes", "*");
     })
+    .get('/products/:id', (req, res) => {
+        services.getRequest(req, res, con, "boxes", "*", `id_box=${sanitizer.sanitize(req.params.id)}`);
+    })
     .post('/products', eJwt({secret: config.secret}), (req, res) => {
         if (!req.session.admin) return res.sendStatus(401);
         services.postRequest(req, res, con, "boxes", "name, price, description");
