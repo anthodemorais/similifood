@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import  { Redirect } from 'react-router-dom';
+import  { Redirect, NavLink } from 'react-router-dom';
 import api from '../../services/api';
+import seePwd from '../../styles/ICONES/ICONE_VOIR.svg'
 
 export default class SignUp extends Component {
     constructor(props) {
@@ -41,14 +42,30 @@ export default class SignUp extends Component {
     render() { 
         return (
             <div className="authContainer">
-                <h2>Sign Up</h2>
-                <form method="POST" onSubmit={(e) => {this.submit(e)}}>
-                    <label>Email: <br/><input type="email" name="email" onChange={e => this.inputChanged(e)} /></label>
-                    <label>Password: <br/><input type="password" name="password" onChange={e => this.inputChanged(e)} /></label>
-                    <label>Password Confirmation: <br/><input type="password" name="password_conf" onChange={e => this.inputChanged(e)} /></label>
-                    <input type="submit" name="signup" value="S'inscrire" className="important"/>
-                </form>
-                {this.renderRedirect()}
+                <div className="formContainer formSign">
+                    <h2>Inscrivez-vous !</h2>
+                    <form method="POST" onSubmit={(e) => {this.submit(e)}}>
+                        <label>Email: <br/><input type="email" name="email" onChange={e => this.inputChanged(e)} /></label>
+                        <label>Password: <br/>
+                            <input type="password" name="password" onChange={e => this.inputChanged(e)} />
+                            <img className="seePwd" src={seePwd} alt="Cliquez pour voir le mot de passe" />
+                        </label>
+                        <label>Password Confirmation: <br/>
+                            <input type="password" name="password_conf" onChange={e => this.inputChanged(e)} />
+                            <img className="seePwd" src={seePwd} alt="Cliquez pour voir le mot de passe" />
+                        </label>
+                        <button type="submit" name="signup" className="important">S'inscrire</button>
+                    </form>
+                    {this.renderRedirect()}
+                    <div className="move">
+                        <strong>Déjà client ?</strong>
+                        <NavLink to={`/auth`}>
+                            <button id="co" className="login">
+                                Connectez-vous                      
+                            </button>
+                        </NavLink>
+                    </div>
+                </div>
             </div>
         );
     }

@@ -7,7 +7,6 @@ import Product from "../products/Product"
 import UserInfo from "../account/Profile"
 import UpdatePassword from "../account/UpdatePassword"
 import UpdateUser from "../account/UpdateUsername"
-import Auth from "../login/Auth"
 import Panier from "../productsPayment/Panier"
 import Pay from "../productsPayment/Payment"
 import Avis from "../avis/Avis"
@@ -15,6 +14,8 @@ import Conseils from "../advices/Conseil"
 import Concept from "../concept/Concept"
 import Header from "../general/Header";
 import Home from "../accueil/Home";
+import SignUp from "../login/SignUp";
+import Login from "../login/Login";
 
 
 export default class Routing extends Component {
@@ -35,7 +36,8 @@ export default class Routing extends Component {
             <Route exact="exact" path={`/user/me/update/password`} component={UpdatePassword}/>
             <Route exact="exact" path={`/user/me/update/username`} component={UpdateUser}/>
             {/* Connexion */}
-            <Route exact="exact" path={`/auth`} component={Auth}/>
+            <Route exact="exact" path={`/auth`} component={Login}/>
+            <Route exact="exact" path={`/auth/new`} component={SignUp}/>
             {/* panier */}
             <Route exact="exact" path={`/user/articles`} component={Panier}/>
             {/* payer */}
