@@ -2,6 +2,7 @@
 {
     border: 2px solid white;
 }
+
 .authContainer, .formContainer
 {
     margin-top: 50px;
@@ -34,7 +35,7 @@
     position: relative;
 }
 
-h2
+.formContainer h2
 {
     align-self: flex-start;
     margin-left: 50px;

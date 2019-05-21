@@ -50,6 +50,18 @@ let api = {
         });
     },
 
+    getProductById: (id) => {
+        return new Promise((resolve, reject) => {
+            fetch(api.url + `products/${id}`, {
+                method: 'GET'
+            }).then((results) => {
+                results.json().then((json) => {
+                    resolve(json.result);
+                });
+            });
+        });
+    },
+
     getFeedbacks: () => {
         return new Promise((resolve, reject) => {
             fetch(api.url + 'feedbacks', {

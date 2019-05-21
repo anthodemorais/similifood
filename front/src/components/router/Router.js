@@ -27,27 +27,27 @@ export default class Routing extends Component {
             {/* Components qui seront sur toutes les pages */}
             <Route path={`/`} component={Header}/>
             {/* page d'accueuil */}
-            <Route exact="exact" path={`/`} component={Home}/>
+            <Route exact path={`/`} component={Home}/>
             {/* page d'articles */}
-            <Route exact="exact" path={`/products`} component={Products}/>
-            <Route exact="exact" path={`/products/id`} component={Product}/>
+            <Route exact path={`/products`} component={Products}/>
+            <Route exact path={`/products/:id`} component={Product}/>
             {/* infos utilisateurs */}
-            <Route exact="exact" path={`/user/me`} component={UserInfo}/>
-            <Route exact="exact" path={`/user/me/update/password`} component={UpdatePassword}/>
-            <Route exact="exact" path={`/user/me/update/username`} component={UpdateUser}/>
+            <Route exact path={`/user/me`} component={UserInfo}/>
+            <Route exact path={`/user/me/update/password`} component={UpdatePassword}/>
+            <Route exact path={`/user/me/update/username`} component={UpdateUser}/>
             {/* Connexion */}
-            <Route exact="exact" path={`/auth`} component={Login}/>
-            <Route exact="exact" path={`/auth/new`} component={SignUp}/>
+            <Route exact path={`/auth`} component={Login}/>
+            <Route exact path={`/auth/new`} component={SignUp}/>
             {/* panier */}
-            <Route exact="exact" path={`/user/articles`} component={Panier}/>
+            <Route exact path={`/user/articles`} component={Panier}/>
             {/* payer */}
-            <Route exact="exact" path={`/pay`} component={Pay}/>
+            <Route exact path={`/payment`} component={Pay}/>
             {/* avis */}
-            <Route exact="exact" path={`/feedbacks`} component={Avis}/>
+            <Route exact path={`/feedbacks`} component={Avis}/>
             {/* conseils */}
-            <Route exact="exact" path={`/advices`} component={Conseils}/>
+            <Route exact path={`/advices`} component={Conseils}/>
             {/* concept */}
-            <Route exact="exact" path={`/concept`} component={Concept}/>
+            <Route exact path={`/concept`} component={Concept}/>
             <Route path={`/`} component={Footer}/>
         </Router>
     );

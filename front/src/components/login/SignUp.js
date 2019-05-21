@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import  { Redirect, NavLink } from 'react-router-dom';
 import api from '../../services/api';
-import seePwd from '../../styles/ICONES/ICONE_VOIR.svg'
+import seePwd from '../../styles/ICONES/ICONE_VOIR.svg';
+import '../../styles/uikit.css';
+import '../../styles/auth.css';
 
 export default class SignUp extends Component {
     constructor(props) {
@@ -41,8 +43,8 @@ export default class SignUp extends Component {
 
     render() { 
         return (
-            <div className="authContainer">
-                <div className="formContainer formSign">
+            <div className="authContainer container">
+                <div className="formContainer formSign container">
                     <h2>Inscrivez-vous !</h2>
                     <form method="POST" onSubmit={(e) => {this.submit(e)}}>
                         <label>Email: <br/><input type="email" name="email" onChange={e => this.inputChanged(e)} /></label>
