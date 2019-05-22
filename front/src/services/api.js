@@ -12,7 +12,7 @@ let api = {
                 body: JSON.stringify({email: email, password: password})
             }).then((results) => {
                 results.json().then((json) => {
-                    sessionStorage.setItem("token", json.token);
+                    localStorage.setItem("token", json.token);
                     api.isConnected = true;
                     resolve(json.token);
                 });
@@ -73,6 +73,19 @@ let api = {
             });
         });
     },
+
+    payment: (price, token) => {
+        return new Promise((resolve, reject) => {
+            fetch(api.url + "payment", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                },
+                body: JSON.stringify({price: price, tokenId: token.id})
+            }).then(response => resolve(response));
+        }
+    )},
 
     isConnected: false
 

@@ -1,28 +1,43 @@
 const eJwt = require('express-jwt');
 const config = require('../config/config.js');
-const stripe = require("stripe")("sk_test_6deM2jSE3xanwsBsGvgwHaTg"); // changer en secret key en prod
+const stripe = require("stripe")("sk_test_6deM2jSE3xanwsBsGvgwHaTg"); // changer en live secret key en prod
 
 
 exports.default = (app) => {
 
     app.post('/payment', eJwt({secret: config.secret}), (req, res) => {
         var price = parseInt(req.body.price);
+        console.log(req.body);
+        var token = req.body.tokenId;
 
-        var paymentCreation = new Promise((resolve, reject) =>
-        {
-            console.log("creation");
-            const intent = stripe.paymentIntents.create({
-                    amount: price * 100,
-                    currency: 'eur',
-                    payment_method_types: ['card'],
-                });
-            resolve(intent)
-        });
+        try {
+            let {status} = stripe.charges.create({
+              amount: price * 100,
+              currency: "eur",
+              description: "A simple charge",
+              source: token
+            });
+        
+            res.json({status});
+          } catch (err) {
+            res.status(500).end();
+          }
 
-        paymentCreation.then((intent) =>
-        {
-            res.json({ client_secret: intent.client_secret });
-        });
+        // var paymentCreation = new Promise((resolve, reject) =>
+        // {
+        //     console.log("creation");
+        //     const intent = stripe.paymentIntents.create({
+        //             amount: price * 100,
+        //             currency: 'eur',
+        //             payment_method_types: ['card'],
+        //         });
+        //     resolve(intent)
+        // });
+
+        // paymentCreation.then((intent) =>
+        // {
+        //     res.json({ client_secret: intent.client_secret });
+        // });
     });
 
 }
