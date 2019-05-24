@@ -7,7 +7,6 @@ exports.default = (app) => {
 
     app.post('/payment', eJwt({secret: config.secret}), (req, res) => {
         var price = parseInt(req.body.price);
-        console.log(req.body);
         var token = req.body.tokenId;
 
         try {

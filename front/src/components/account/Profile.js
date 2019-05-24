@@ -12,7 +12,7 @@ class Profile extends Component {
     }
 
     getInfos() {
-        api.getProfile().then(profile => {
+        api.getUserById(sessionStorage.getItem("id_user")).then(profile => {
             console.log(profile[0]);
             this.setState({user: profile[0]});
         })

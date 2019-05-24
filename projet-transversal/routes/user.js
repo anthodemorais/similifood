@@ -7,9 +7,8 @@ const sanitizer = require('sanitizer');
 
 exports.default = (app, con) => { 
 
-    app.post('/user/me', eJwt({secret: config.secret}), (req, res) => {
-        console.log(req.session);
-        services.getRequest(req, res, con, "users", "email, points", `id_user=${parseInt(req.body.id_user)}`);
+    app.get('/user/:id', (req, res) => {
+        services.getRequest(req, res, con, "users", "email, points", `id_user=${sanitizer.sanitize(req.params.id)}`);
     }).post('/auth', (req, res) => {
 
         var email    = sanitizer.sanitize(req.body.email),

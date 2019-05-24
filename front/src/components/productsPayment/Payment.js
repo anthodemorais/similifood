@@ -8,6 +8,7 @@ class Payment extends Component {
     this.state = {
       adress: "",
       quantity: 1,
+      name: "",
       complete: false
     };
     this.submit = this.submit.bind(this);
@@ -21,7 +22,7 @@ class Payment extends Component {
   }
 
   async submit(ev) {
-    let {token} = await this.props.stripe.createToken({name: "Name"});
+    let {token} = await this.props.stripe.createToken({name: this.state.name});
 
     Promise.all([api.order(this.props.box_id, this.state.adress, this.state.quantity),
                 api.payment(this.props.price, token)])
@@ -38,6 +39,8 @@ class Payment extends Component {
     return (
       <div className="checkout">
         <p>Would you like to complete the purchase?</p>
+        <label for="name">Nom :</label>
+        <input type="text" name="name" onChange={e => this.inputChanged(e)} />
         <label for="adress">Adresse complète :</label>
         <input type="text" name="adress" onChange={e => this.inputChanged(e)} />
         <label for="quantity">Quantitée :</label>

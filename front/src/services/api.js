@@ -110,15 +110,13 @@ let api = {
         }
     )},
 
-    getProfile: () => {
+    getUserById: (id) => {
         return new Promise((resolve, reject) => {
-            fetch(api.url + 'user/me', {
-                method: 'POST',
+            fetch(api.url + `user/${id}`, {
+                method: 'GET',
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer " + localStorage.getItem("token")
                 },
-                body: JSON.stringify({id_user: sessionStorage.getItem("id_user")})
             }).then((results) => {
                 results.json().then((json) => {
                     resolve(json.result);
