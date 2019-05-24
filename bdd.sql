@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: May 24, 2019 at 10:49 AM
+-- Generation Time: May 24, 2019 at 01:32 PM
 -- Server version: 5.7.23
 -- PHP Version: 7.2.8
 
@@ -25,16 +25,17 @@ CREATE TABLE `boxes` (
   `name` varchar(45) NOT NULL,
   `price` float NOT NULL,
   `description` text NOT NULL,
-  `animal` varchar(25) DEFAULT NULL
+  `animal` varchar(25) DEFAULT NULL,
+  `img_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `boxes`
 --
 
-INSERT INTO `boxes` (`id_box`, `name`, `price`, `description`, `animal`) VALUES
-(1, 'test', 20, 'Box de test.', 'chien'),
-(2, 'produit de test', 50, 'un produit pour tester', 'chat');
+INSERT INTO `boxes` (`id_box`, `name`, `price`, `description`, `animal`, `img_name`) VALUES
+(1, 'test', 20, 'Box de test.', 'chien', 'test1.jpg'),
+(2, 'produit de test', 50, 'un produit pour tester', 'chat', 'test2.jpg');
 
 -- --------------------------------------------------------
 
@@ -111,7 +112,10 @@ INSERT INTO `orders` (`id_order`, `status`, `user_id`, `box_id`, `adress`, `date
 (10, 'ordered', 4, 1, '24 rue Henri Martin', '2019-05-24', NULL, 1),
 (11, 'ordered', 4, 1, 'adresse', '2019-05-24', NULL, 1),
 (12, 'ordered', 4, 1, 'adresse', '2019-05-24', NULL, 1),
-(13, 'ordered', 4, 1, '24 rue Henri Martin', '2019-05-24', NULL, 1);
+(13, 'ordered', 4, 1, '24 rue Henri Martin', '2019-05-24', NULL, 1),
+(14, 'ordered', 4, 1, 'adresse', '2019-05-24', NULL, 1),
+(15, 'ordered', 4, 1, '', '2019-05-24', NULL, 1),
+(16, 'ordered', 4, 1, 'adresse', '2019-05-24', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -220,20 +224,21 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `points` int(11) DEFAULT NULL,
-  `admin` tinyint(1) NOT NULL DEFAULT '0'
+  `admin` tinyint(1) NOT NULL DEFAULT '0',
+  `name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id_user`, `email`, `password`, `points`, `admin`) VALUES
-(2, 'testUpdate@email.com', 'sha1$8a774da8$1$21ba24b4b67bd451ab15739f80319827c1fe4898', NULL, 0),
-(4, 'test2@email.com', 'sha1$6f40baca$1$d6e2e6672582598ff74143a1e80cff31b2b10230', NULL, 1),
-(5, 'test3@email.com', 'sha1$406dc695$1$0b0af95c4756786beb5a0f7606f71e9b8dfe7307', NULL, 0),
-(6, 'test4@email.com', 'sha1$3dc7dcfa$1$5b1026fb27430c62c5ee41f789495e1e780b1f74', NULL, 0),
-(7, 'test5@email.com', 'sha1$6f6edf82$1$c8923cefacd34956d5b3f352463f0fbcd2c3aefe', NULL, 0),
-(14, 'test6@email.com', 'sha1$2b36a70f$1$2b3ef7db63f29f8ee47733607d45abe74d82b75f', NULL, 0);
+INSERT INTO `users` (`id_user`, `email`, `password`, `points`, `admin`, `name`) VALUES
+(2, 'testUpdate@email.com', 'sha1$8a774da8$1$21ba24b4b67bd451ab15739f80319827c1fe4898', NULL, 0, 'test'),
+(4, 'test2@email.com', 'sha1$6f40baca$1$d6e2e6672582598ff74143a1e80cff31b2b10230', NULL, 1, 'test'),
+(5, 'test3@email.com', 'sha1$406dc695$1$0b0af95c4756786beb5a0f7606f71e9b8dfe7307', NULL, 0, 'test'),
+(6, 'test4@email.com', 'sha1$3dc7dcfa$1$5b1026fb27430c62c5ee41f789495e1e780b1f74', NULL, 0, 'test'),
+(7, 'test5@email.com', 'sha1$6f6edf82$1$c8923cefacd34956d5b3f352463f0fbcd2c3aefe', NULL, 0, 'test'),
+(14, 'test6@email.com', 'sha1$2b36a70f$1$2b3ef7db63f29f8ee47733607d45abe74d82b75f', NULL, 0, 'test');
 
 --
 -- Indexes for dumped tables
@@ -316,7 +321,7 @@ ALTER TABLE `ingredients`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `recipes`
