@@ -13,6 +13,7 @@ export default class SignUp extends Component {
             email: "",
             password: "",
             password_conf: "",
+            name: "",
             redirect: false
         }
     }
@@ -47,6 +48,7 @@ export default class SignUp extends Component {
                 <div className="formContainer formSign container">
                     <h2>Inscrivez-vous !</h2>
                     <form method="POST" onSubmit={(e) => {this.submit(e)}}>
+                        <label>Nom et Prénom: <br/><input type="text" name="name" onChange={e => this.inputChanged(e)} /></label>
                         <label>Email: <br/><input type="email" name="email" onChange={e => this.inputChanged(e)} /></label>
                         <label>Password: <br/>
                             <input type="password" name="password" onChange={e => this.inputChanged(e)} />

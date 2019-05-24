@@ -21,14 +21,14 @@ let api = {
         });
     },
 
-    register: (email, password) => {
+    register: (email, password, name) => {
         return new Promise((resolve, reject) => {
             fetch(api.url + 'register', {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({email: email, password: password})
+                body: JSON.stringify({email: email, password: password, name: name})
             }).then((results) => {
                 results.json().then((json) => {
                     api.getToken(email, password).then((token) => {

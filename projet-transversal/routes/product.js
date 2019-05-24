@@ -13,7 +13,7 @@ exports.default = (app, con) => {
     })
     .post('/products', eJwt({secret: config.secret}), (req, res) => {
         if (!req.session.admin) return res.sendStatus(401);
-        services.postRequest(req, res, con, "boxes", "name, price, description, animal");
+        services.postRequest(req, res, con, "boxes", "name, price, description, animal, img_name");
     })
     .put('/products/:id', eJwt({secret: config.secret}), (req, res) => {
         if (!req.session.admin) return res.sendStatus(401);

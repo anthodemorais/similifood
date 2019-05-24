@@ -63,7 +63,7 @@ exports.default = (app, con) => {
         }
     })
     .post('/register', (req, res) => {
-        services.postRequest(req, res, con, "users", "email, password");
+        services.postRequest(req, res, con, "users", "email, password, name");
     })
     .put('/user/:id', eJwt({secret: config.secret}), (req, res) => {
         services.putRequest(req, res, con, "users", `id_user=${sanitizer.sanitize(req.params.id)}`);

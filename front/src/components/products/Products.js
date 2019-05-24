@@ -96,6 +96,7 @@ export default class Products extends Component {
                 </button>
                 {this.state.products.map((product) => (
                     <div className="box" key={product.id_box}>
+                        <img src={require(`../../styles/IMAGES/${product.img_name}`)} alt={product.name} />
                         <h2>{product.name}</h2>
                         <p>{product.description}</p>
                         <strong>{product.price}€</strong>
