@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: May 24, 2019 at 08:10 AM
+-- Generation Time: May 24, 2019 at 10:49 AM
 -- Server version: 5.7.23
 -- PHP Version: 7.2.8
 
@@ -49,6 +49,14 @@ CREATE TABLE `feedbacks` (
   `box_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `feedbacks`
+--
+
+INSERT INTO `feedbacks` (`id_feedback`, `content`, `user_id`, `box_id`) VALUES
+(1, 'test', 7, 1),
+(2, 'commentaire de test', 4, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -93,7 +101,17 @@ CREATE TABLE `orders` (
 INSERT INTO `orders` (`id_order`, `status`, `user_id`, `box_id`, `adress`, `date_of_order`, `date_of_deliver`, `quantity`) VALUES
 (1, 'ordered', 2, 1, 'chez moi', '2019-04-08', NULL, 1),
 (2, 'ordered', 2, 1, '35 rue chez moi', '2019-04-08', NULL, 1),
-(3, 'ordered', 3, 1, 'adresse de test', '2019-04-24', NULL, 1);
+(3, 'ordered', 3, 1, 'adresse de test', '2019-04-24', NULL, 1),
+(4, 'ordered', 7, 1, 'adresse de test', '2019-05-24', NULL, 1),
+(5, 'ordered', 7, 1, 'adresse de test', '2019-05-24', NULL, 1),
+(6, 'ordered', 7, 1, 'adresse de test', '2019-05-24', NULL, 1),
+(7, 'ordered', 7, 1, 'adresse de test', '2019-05-24', NULL, 1),
+(8, 'ordered', 4, 2, 'adresse', '2019-05-24', NULL, 1),
+(9, 'ordered', 4, 1, 'adresse', '2019-05-24', NULL, 1),
+(10, 'ordered', 4, 1, '24 rue Henri Martin', '2019-05-24', NULL, 1),
+(11, 'ordered', 4, 1, 'adresse', '2019-05-24', NULL, 1),
+(12, 'ordered', 4, 1, 'adresse', '2019-05-24', NULL, 1),
+(13, 'ordered', 4, 1, '24 rue Henri Martin', '2019-05-24', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -286,7 +304,7 @@ ALTER TABLE `boxes`
 -- AUTO_INCREMENT for table `feedbacks`
 --
 ALTER TABLE `feedbacks`
-  MODIFY `id_feedback` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_feedback` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `ingredients`
@@ -298,7 +316,7 @@ ALTER TABLE `ingredients`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `recipes`
