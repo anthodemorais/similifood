@@ -15,6 +15,7 @@ import Header from "../general/Header";
 import Home from "../accueil/Home";
 import SignUp from "../login/SignUp";
 import Login from "../login/Login";
+import Contact from "../contact/Contact";
 
 
 export default class Routing extends Component {
@@ -47,6 +48,8 @@ export default class Routing extends Component {
             <Route exact path={`/advices`} component={Conseils}/>
             {/* concept */}
             <Route exact path={`/concept`} component={Concept}/>
+            {/* contact */}
+            <Route exact path={`/contact`} component={Contact} />
             <Route path={`/`} component={Footer}/>
         </Router>
     );
