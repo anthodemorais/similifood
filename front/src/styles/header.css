@@ -35,6 +35,7 @@ header{
 /*Début Grid*/
 .logotop{
     width: 15%;
+    cursor: pointer;
 }
 menu{
     width: 30%;

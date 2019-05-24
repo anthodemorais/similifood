@@ -59,7 +59,9 @@ export default class Header extends Component {
                         <li className="contact"><NavLink to={`/contact`} className="blod cap">contact</NavLink></li>
                     </ul>
                 </menu>
-                <img className="logotop" src={logo} alt="Logo de notre site"/>
+                <NavLink to={`/`} className="logotop">
+                    <img src={logo} alt="Logo de notre site"/>
+                </NavLink>
                 {this.displayAuth()}
                 <button className="accessibilityIcon">
                     <img src={accessibility} alt="Icône d'accessibilité aux malvoyants"/>
