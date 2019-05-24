@@ -7,6 +7,8 @@ exports.default = (app, con) => {
 
     app.post('/order', eJwt({secret: config.secret}), (req, res) => {
 
+        console.log(req.body);
+
     var user_id  = sanitizer.sanitize(req.body.user_id),
         box_id   = sanitizer.sanitize(req.body.box_id),
         adress   = sanitizer.sanitize(req.body.adress),

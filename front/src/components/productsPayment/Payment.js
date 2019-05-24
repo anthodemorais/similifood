@@ -11,6 +11,9 @@ class Payment extends Component {
       complete: false
     };
     this.submit = this.submit.bind(this);
+    api.order(this.props.box_id, "adresse", 1)
+    .then(result => console.log)
+    .catch(err => console.log)
   }
 
   inputChanged(e) {

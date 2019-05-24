@@ -75,6 +75,28 @@ let api = {
         });
     },
 
+    addFeedback: (content, box_id) => {
+        return new Promise((resolve, reject) => {
+            fetch(api.url + 'feedbacks', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                },
+                body: JSON.stringify(
+                    {
+                        content: content,
+                        user_id: sessionStorage.getItem("id_user"),
+                        box_id: box_id
+                    })
+            }).then((results) => {
+                results.json().then((json) => {
+                    resolve(json.result);
+                });
+            });
+        });
+    },
+
     payment: (price, token) => {
         return new Promise((resolve, reject) => {
             fetch(api.url + "payment", {
@@ -115,7 +137,7 @@ let api = {
                 },
                 body: JSON.stringify(
                     {
-                        id_user: sessionStorage.getItem("id_user"),
+                        user_id: sessionStorage.getItem("id_user"),
                         box_id: box_id,
                         adress: adress,
                         quantity: quantity

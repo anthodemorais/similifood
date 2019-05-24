@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import api from '../../services/api';
 import Payment from '../productsPayment/Payment';
 import {Elements, StripeProvider} from 'react-stripe-elements';
+import AddFeedback from '../avis/AddFeedback';
 
 export default class Product extends Component {
     constructor(props) {
@@ -78,6 +79,7 @@ export default class Product extends Component {
                 <button onClick={() => this.addToCart()}>Ajouter au panier</button>
                 {this.displayPayment()}
                 {this.displayMessage()}
+                <AddFeedback box_id={this.props.match.params.id} />
             </div>
         );
     }
