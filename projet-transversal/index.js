@@ -4,21 +4,6 @@ const mysql = require('mysql');
 const session = require('express-session');
 const config = require('./config/config.js');
 
-
-  // Host	localhost
-  // Port	8889
-  // User	root
-  // Password	root
-  // Socket	/Applications/MAMP/tmp/mysql/mysql.sock
-  
-// const con = mysql.createConnection({
-//       host: "localhost",
-//       user: "root",
-//       password: "root",
-//       port: "8889",
-//       database: "projetTransversal"
-// });
-
 const con = mysql.createPool({
       host: "localhost",
       user: "root",
@@ -28,6 +13,16 @@ const con = mysql.createPool({
 });
 
 const app = express();
+
+// app.use(express.cookieParser());
+
+app.set('trust proxy', 1);
+app.use(session({
+  secret: config.secret,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
 
 var urlencodedParser = bodyParser.urlencoded({
     extended: true
@@ -42,14 +37,6 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Credentials', true);
     next();
 });
-
-app.set('trust proxy', 1);
-app.use(session({
-  secret: config.secret,
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
-}))
 
 require('./routes/user').default(app, con);
 require('./routes/order').default(app, con);

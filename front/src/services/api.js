@@ -13,6 +13,7 @@ let api = {
             }).then((results) => {
                 results.json().then((json) => {
                     localStorage.setItem("token", json.token);
+                    sessionStorage.setItem("id_user", json.id_user);
                     api.isConnected = true;
                     resolve(json.token);
                 });
@@ -86,6 +87,46 @@ let api = {
             }).then(response => resolve(response));
         }
     )},
+
+    getProfile: () => {
+        return new Promise((resolve, reject) => {
+            fetch(api.url + 'user/me', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                },
+                body: JSON.stringify({id_user: sessionStorage.getItem("id_user")})
+            }).then((results) => {
+                results.json().then((json) => {
+                    resolve(json.result);
+                });
+            });
+        });
+    },
+
+    order: (box_id, adress, quantity) => {
+        return new Promise((resolve, reject) => {
+            fetch(api.url + 'order', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                },
+                body: JSON.stringify(
+                    {
+                        id_user: sessionStorage.getItem("id_user"),
+                        box_id: box_id,
+                        adress: adress,
+                        quantity: quantity
+                    })
+            }).then((results) => {
+                results.json().then((json) => {
+                    resolve(json.result);
+                });
+            });
+        });
+    },
 
     isConnected: false
 
