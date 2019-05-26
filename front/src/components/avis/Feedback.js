@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import api from "../../services/api";
-export default class AFeedback extends Component {
+export default class Feedback extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,11 +29,9 @@ export default class AFeedback extends Component {
   render() {
     return (<div>
       <p>
-        {
-          `Un commentaire de ${this.state.username} pour le produit "${this.state.boxName}" :`
-        }
+        {`${this.state.username} (pour le produit "${this.state.boxName}") :`}
+        {this.state.description}
       </p>
-      <p>{this.state.description}</p>
     </div>);
   }
 }

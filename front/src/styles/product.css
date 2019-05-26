@@ -1,0 +1,90 @@
+.container .viewBox
+{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    height: 200vh;
+    width: 100%;
+    padding-left: 15%;
+    margin-top: 150px;
+}
+
+.container .viewBox ul
+{
+    display: block;
+    list-style-type: disc;
+}
+
+.container .viewBox li
+{
+	list-style-type: disc;
+	list-style: inside;
+    display: block;
+    font-family: Verdana;
+    text-transform: capitalize;
+    font-weight: bold;
+}
+
+.viewBox h2
+{
+    font-size: 50px;
+    margin: 0;
+}
+
+.viewBox .title p
+{
+    font-family: Verdana;
+    text-transform: capitalize;
+    font-weight: bold;
+}
+
+.viewBox .recipe
+{
+    width: 50%;
+}
+
+.viewBox .title > div
+{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.viewBox .title > div:nth-child(1)
+{
+    border-bottom: 2px solid #1B264F;
+}
+
+.viewBox .title .cartBtn
+{
+    margin-top: 30px;
+}
+
+.viewBox .feedbacks
+{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 70px;
+    border-left: 2px solid #1B264F;
+}
+
+.viewBox img
+{
+    width: 100%;
+}
+
+.viewBox .price
+{
+    font-size: 50px;
+}
+
+.viewBox .feedbacks
+{
+    overflow: scroll;
+}
+
+.feedbacks h3
+{
+    font-size: 35px;
+}

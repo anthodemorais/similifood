@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { Elements, StripeProvider } from 'react-stripe-elements';
 import api from '../../services/api';
-import Payment from '../productsPayment/Payment';
-import {Elements, StripeProvider} from 'react-stripe-elements';
+import '../../styles/product.css';
 import AddFeedback from '../avis/AddFeedback';
 import Feedback from "../avis/Feedback";
+import Payment from '../productsPayment/Payment';
 
 export default class Product extends Component {
     constructor(props) {
@@ -18,7 +19,9 @@ export default class Product extends Component {
             tools: [],
             ingredients: [],
             feedbacks: [],
-            id: this.props.match.params.id
+            steps: [],
+            id: this.props.match.params.id,
+            img: ""
         };
         this.getProduct();
         this.getRecipe();
@@ -27,26 +30,33 @@ export default class Product extends Component {
 
     getProduct() {
         api.getProductById(this.state.id).then(product => {
-            console.log(product[0].img_name);
-            this.setState({product: product[0]});
+            this.setState({ 
+                product: product[0],
+                img: require(`../../styles/IMAGES/${product[0].img_name}`),
+            });
         })
     }
 
     getRecipe() {
         api.getRecipeById(this.state.id).then(result => {
-            this.setState({recipe: result.result, tools: result.tools, ingredients: result.ingredients});
+            this.setState({
+                recipe: result.result,
+                tools: result.tools,
+                ingredients: result.ingredients,
+                steps: result.result.steps.split("\n")
+            });
         })
     }
 
     loadFeedback(id) {
         api.getFeedbacks().then(feedbacks => {
-          let data = feedbacks.result;
-    
-          let finaldata = data.filter(feedback => feedback.box_id === id);
-    
-          this.setState({feedbacks: finaldata});
+            let data = feedbacks.result;
+
+            let finaldata = data.filter(feedback => feedback.box_id === parseInt(id));
+
+            this.setState({ feedbacks: finaldata });
         });
-      }
+    }
 
     displayPayment() {
         if (this.state.paymentIntent) {
@@ -74,8 +84,8 @@ export default class Product extends Component {
                 console.log(newCart);
                 localStorage.setItem("cart", newCart);
             }
-    
-            this.setState({addedToCart: true});
+
+            this.setState({ addedToCart: true });
         }
         else {
             this.setState({ message: "Vous devez être connecté pour ajouter au panier" });
@@ -88,34 +98,51 @@ export default class Product extends Component {
         )
     }
 
-    render() { 
+    render() {
         return (
-            <div className="viewBox container">
-                <h2>{this.state.product.name}</h2>
-                <p>{this.state.product.description}</p>
-                <span>Ustensiles :</span>
-                <ul>
-                    {this.state.tools.map(tool => <li>{tool.tool}</li>)}
-                </ul>
-                <span>Ingrédients :</span>
-                <ul>
-                    {this.state.ingredients.map(ingredient => <li>{ingredient.ingredient}</li>)}
-                </ul>
-                <p>Recette : {this.state.recipe.steps}</p>
-                <span>Temps de préparation : {this.state.recipe.preparation_time}</span>
-                <strong>{this.state.product.price}€</strong>
-                <button className="important mt" onClick={() => this.setState({paymentIntent: true})}>Acheter</button>
-                <span>OU</span>
-                <button onClick={() => this.addToCart()}>Ajouter au panier</button>
-                {this.displayPayment()}
-                {this.displayMessage()}
-                <h3>Les avis pour ce produit</h3>
-                <AddFeedback box_id={this.props.match.params.id} />
-                {
-                    this.state.feedbacks.map(feedback => {
-                    return (<Feedback id={feedback.id_feedback} userId={feedback.user_id} content={feedback.content} boxId={feedback.box_id}/>);
-                    })
-                }
+            <div className="container">
+                <div className="viewBox">
+                    <div className="title recipe">
+                        <div>
+                            <div>
+                                <h2>{this.state.product.name}</h2>
+                                <p>{this.state.product.description}</p>
+                            </div>
+                            <strong className="price">{this.state.product.price}€</strong>
+                        </div>
+                        <span>Temps de préparation : {this.state.recipe.preparation_time}</span>
+                        <br/>
+                        <div>
+                            <div>
+                                <strong>Ustensiles :</strong>
+                                <ul>
+                                    {this.state.tools.map(tool => <li> • {tool.tool}</li>)}
+                                </ul>
+                            </div>
+                            <div>
+                                <strong>Ingrédients :</strong>
+                                <ul>
+                                    {this.state.ingredients.map(ingredient => <li> • {ingredient.ingredient}</li>)}
+                                </ul>
+                            </div>
+                        </div>
+                        <p>Recette :<br/>
+                            <ol>
+                                {this.state.steps.map(step => <li>{step}</li>)}
+                            </ol>
+                        </p>
+                        <button className="important mt" onClick={() => this.setState({ paymentIntent: true })}>Acheter</button><br/>
+                        <button className="cartBtn" onClick={() => this.addToCart()}>Ajouter au panier</button>
+                        {this.displayPayment()}
+                        {this.displayMessage()}
+                    </div>
+                    <div className="feedbacks">
+                        <h3>Les avis pour ce produit</h3>
+                        <AddFeedback box_id={this.props.match.params.id} />
+                        {this.state.feedbacks.map(feedback => (<Feedback id={feedback.id_feedback} userId={feedback.user_id} content={feedback.content} boxId={feedback.box_id} />))}
+                    </div>
+                </div>
+                <hr />
             </div>
         );
     }
