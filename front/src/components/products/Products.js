@@ -78,13 +78,13 @@ export default class Products extends Component {
 				products = products.filter((product) => product.animal === this.state.pet);
 			}
 			if (this.state.fur !== '') {
-				products = products.filter((product) => product.animal === this.state.fur);
+				products = products.filter((product) => product.fur === this.state.fur);
 			}
 			if (this.state.weight !== '') {
 				products = products.filter((product) => product.weight === this.state.weight);
 			}
 			if (this.state.age !== '') {
-				products = products.filter((product) => product.animal === this.state.age);
+				products = products.filter((product) => product.age === this.state.age);
 			}
 
 			console.log('test1');

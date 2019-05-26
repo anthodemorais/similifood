@@ -1,0 +1,82 @@
+.accessibilityMenu
+{
+    position: fixed;
+    width: 300px;
+    height: max-content;
+    top: 154px;
+    left: 20px;
+    border: 0;
+    border-radius: 20px;
+    background-color: #1B264F;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.accessibilityMenu strong
+{
+    font-family: "Zing Rust";
+    color: white;
+    font-size: 30px;
+    margin-left: 70px;
+    border-bottom: 2px solid white;
+    letter-spacing: 2px;
+    margin-top: 5px;
+}
+
+.accessibilityMenu > div
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.accessibilityMenu > div > span
+{
+    width: 100px;
+    color: white;
+    text-align: right;
+    font-weight: bold;
+}
+
+.accessibilityMenu > div img
+{
+    width: 50px;
+}
+
+.accessibilityMenu > div > div
+{
+    display: flex;
+    align-items: center;
+    height: 50px;
+    background-color: white;
+    border-radius: 25px;
+    margin: 10px 5px;
+    width: 180px;
+}
+
+.accessibilityMenu > div > div span
+{
+    height: min-content;
+}
+
+.accessibilityMenu .spacingBtn
+{
+    margin-left: 100px;
+}
+
+.accessDefault
+{
+    width: 100%;
+}
+
+.accessDefault img
+{
+    margin-left: 5px;
+}
+
+.accessibilityMenu .accessDefault > span
+{
+    width: 110px;
+}

@@ -7,8 +7,28 @@ import home from '../../styles/ICONES/HOME.svg';
 import logout from '../../styles/ICONES/LOG_OUT.svg';
 import accessibility from '../../styles/ICONES/ACCESSIBILITY.svg';
 import api from '../../services/api';
+import Accessibility from './Accessibility';
 
 export default class Header extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            clicked: false
+        }
+    }
+
+    handleClick() {
+        this.setState({ clicked: !this.state.clicked });
+    }
+
+    showMenu() {
+        if (this.state.clicked) {
+            return (
+                <Accessibility />
+            )
+        }
+    }
 
     displayAuth() {
         if (api.isConnected) {
@@ -64,8 +84,9 @@ export default class Header extends Component {
                 </NavLink>
                 {this.displayAuth()}
                 <button className="accessibilityIcon">
-                    <img src={accessibility} alt="Icône d'accessibilité aux malvoyants"/>
+                    <img src={accessibility} alt="Icône d'accessibilité aux malvoyants" onClick={(e) => this.handleClick()} />
                 </button>
+                {this.showMenu()}
             </header>
         )
     }

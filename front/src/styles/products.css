@@ -1,6 +1,6 @@
 .productsContainer
 {
-    overflow: scroll;
+    height: max-content;
 }
 
 .container .boxes
@@ -23,7 +23,6 @@
 
 .productsTitle
 {
-    margin-top: 250px;
     display: flex;
     align-items: center;
 }
