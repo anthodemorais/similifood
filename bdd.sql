@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: May 26, 2019 at 11:47 AM
+-- Generation Time: May 26, 2019 at 03:56 PM
 -- Server version: 5.7.23
 -- PHP Version: 7.2.8
 
@@ -37,8 +37,8 @@ CREATE TABLE `boxes` (
 --
 
 INSERT INTO `boxes` (`id_box`, `name`, `price`, `description`, `animal`, `img_name`, `age`, `weight`, `fur`) VALUES
-(1, 'test', 20, 'Box de test.', 'chien', 'test1.jpg', 'adulte', 'souspoids', 'long'),
-(2, 'produit de test', 50, 'un produit pour tester', 'chat', 'test2.jpg', 'bebe', 'normal', 'court'),
+(1, 'Mousseline de courgettes', 20, 'Une délicieuse recette pour chat à base de courgettes.', 'chat', 'test2.jpg', 'adulte', 'surpoids', 'long'),
+(2, 'produit de test', 50, 'un produit pour tester', 'chat', 'test1.jpg', 'bebe', 'normal', 'court'),
 (3, 'Lasagnes', 30, 'Un délicieux plat de lasagnes italiennes pour votre chat', 'chat', 'test2.jpg', 'senior', 'surpoids', 'long');
 
 -- --------------------------------------------------------
@@ -60,7 +60,16 @@ CREATE TABLE `feedbacks` (
 
 INSERT INTO `feedbacks` (`id_feedback`, `content`, `user_id`, `box_id`) VALUES
 (1, 'test', 7, 1),
-(2, 'commentaire de test', 4, 1);
+(2, 'commentaire de test', 4, 1),
+(3, 'excellent produit', 4, 1),
+(4, 'j\'adore', 4, 1),
+(5, 'j\'adore', 4, 1),
+(6, 'j\'adore', 4, 1),
+(7, 'j\'adore', 4, 1),
+(8, 'j\'adore', 4, 1),
+(9, 'j\'adore', 4, 1),
+(10, 'j\'adore', 4, 1),
+(11, 'j\'adore', 4, 1),
 
 -- --------------------------------------------------------
 
@@ -78,8 +87,8 @@ CREATE TABLE `ingredients` (
 --
 
 INSERT INTO `ingredients` (`id_ingredient`, `ingredient`) VALUES
-(1, 'farine'),
-(2, 'ingredientDeTest'),
+(1, 'courgettes'),
+(2, 'farine'),
 (3, 'ingredientDeTest');
 
 -- --------------------------------------------------------
@@ -120,7 +129,30 @@ INSERT INTO `orders` (`id_order`, `status`, `user_id`, `box_id`, `adress`, `date
 (14, 'ordered', 4, 1, 'adresse', '2019-05-24', NULL, 1),
 (15, 'ordered', 4, 1, '', '2019-05-24', NULL, 1),
 (16, 'ordered', 4, 1, 'adresse', '2019-05-24', NULL, 1),
-(17, 'ordered', 4, 1, 'adresse', '2019-05-26', NULL, 1);
+(17, 'ordered', 4, 1, 'adresse', '2019-05-26', NULL, 1),
+(18, 'ordered', 4, 2, 'adresse', '2019-05-26', NULL, 1),
+(19, 'ordered', 4, 2, 'adresse', '2019-05-26', NULL, 1),
+(20, 'ordered', 4, 2, 'adresse', '2019-05-26', NULL, 1),
+(21, 'ordered', 4, 2, 'adresse', '2019-05-26', NULL, 1),
+(22, 'ordered', 4, 2, 'adresse', '2019-05-26', NULL, 1),
+(23, 'ordered', 4, 1, 'adresse', '2019-05-26', NULL, 1),
+(24, 'ordered', 4, 2, 'adresse', '2019-05-26', NULL, 1),
+(25, 'ordered', 4, 2, 'adresse', '2019-05-26', NULL, 1),
+(26, 'ordered', 4, 1, 'adresse', '2019-05-26', NULL, 1),
+(27, 'ordered', 4, 1, 'adresse', '2019-05-26', NULL, 1),
+(28, 'ordered', 4, 1, 'adresse', '2019-05-26', NULL, 1),
+(29, 'ordered', 4, 1, 'adresse', '2019-05-26', NULL, 1),
+(30, 'ordered', 4, 1, 'adresse', '2019-05-26', NULL, 1),
+(31, 'ordered', 4, 1, 'adresse', '2019-05-26', NULL, 1),
+(32, 'ordered', 4, 1, '', '2019-05-26', NULL, 1),
+(33, 'ordered', 4, 1, 'adresse', '2019-05-26', NULL, 1),
+(34, 'ordered', 4, 1, 'adresse', '2019-05-26', NULL, 1),
+(35, 'ordered', 4, 1, 'adresse', '2019-05-26', NULL, 1),
+(36, 'ordered', 4, 1, 'adresse', '2019-05-26', NULL, 1),
+(37, 'ordered', 4, 1, 'adresse', '2019-05-26', NULL, 1),
+(38, 'ordered', 4, 1, 'adresse', '2019-05-26', NULL, 1),
+(39, 'ordered', 4, 1, 'adresse', '2019-05-26', NULL, 1),
+(40, 'ordered', 4, 1, 'adresse', '2019-05-26', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -143,7 +175,7 @@ CREATE TABLE `recipes` (
 --
 
 INSERT INTO `recipes` (`id_recipe`, `name`, `steps`, `preparation_time`, `cook_time`, `difficulty`, `id_box`) VALUES
-(1, 'test', '1. premiere etape\r\n2. deuxieme etape\r\n3. troisieme etape', '10h', '2h', 0, 1),
+(1, 'Régime pour chat en 5 étapes', 'Laver, égoutter et essuyer les courgettes sans les éplucher\r\nOuvrer chaque courgette en deux dans le sens de la longueur (en 4 longueurs si elle est moyenne), puis couper dans l’autre sens chaque longueur pour obtenir des carrés que je place dans un plat en verre pour micro-ondes.\r\nCouvre le plat en verre avec un couvercle ou un film alimentaire puis le place au micro-ondes, puis sélectionne la puissance maximale et mets à cuire entre 6 et 10 minutes (selon la puissance maximale d’un appareil à un autre). Pour ma part, en vérifiant plusieurs fois en cours de cuisson les morceaux de courgettes avec la pointe d’un couteau, ensuite définir la cuisson à 10 minutes. La courgette doit être tendre et fondante mais pas trop cuite. Il est important de garder le jus de la cuisson dans un verre à part.\r\nVerser dans un mixeur pour réaliser la mousseline de courgettes. Si elle vous semble trop pâteuse ou épaisse, ajoutez le jus pour la rendre plus liquide.\r\nVerser trois bonnes cuillères à soupe (25 g) pour le test et mets le reste en bocaux de verre (refermer aussitôt le bocal, le laisserai refroidir avant de le mettre au congélateur –sortir chaque bocal la veille pour le servir le lendemain après 20 secondes de chauffe au micro-ondes). Il est important de tiédir jusqu’à 38° la mousseline car c’est reproduire la chaleur de la proie lorsque notre chat l’a capturée.', '20min', '10min', 0, 1),
 (2, 'test', '1. premiere etape\r\n2. deuxieme etape\r\n3. troisieme etape', '10h', '2h', 0, 2);
 
 -- --------------------------------------------------------
@@ -155,7 +187,7 @@ INSERT INTO `recipes` (`id_recipe`, `name`, `steps`, `preparation_time`, `cook_t
 CREATE TABLE `recipe_has_ingredients` (
   `ingredient_id` int(11) NOT NULL,
   `recipe_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL
+  `quantity` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -163,7 +195,7 @@ CREATE TABLE `recipe_has_ingredients` (
 --
 
 INSERT INTO `recipe_has_ingredients` (`ingredient_id`, `recipe_id`, `quantity`) VALUES
-(1, 1, 0);
+(1, 1, '500g');
 
 -- --------------------------------------------------------
 
@@ -187,25 +219,6 @@ INSERT INTO `recipe_has_tools` (`tool_id`, `recipe_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tokens`
---
-
-CREATE TABLE `tokens` (
-  `id_token` int(11) NOT NULL,
-  `token` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `tokens`
---
-
-INSERT INTO `tokens` (`id_token`, `token`) VALUES
-(2, '7z5dRbI09N4rhfbMIJ68Yo1l6Rtnp2kMoZs56lTXZmEqV'),
-(1, 'husEXpLj9tqjVVb9MEkWPbwxABJwCPf5cBJxfIOLJ122g');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tools`
 --
 
@@ -219,8 +232,8 @@ CREATE TABLE `tools` (
 --
 
 INSERT INTO `tools` (`id_tool`, `tool`) VALUES
-(1, 'fouet'),
-(2, 'bol');
+(1, 'micro-ondes'),
+(2, 'mixeur');
 
 -- --------------------------------------------------------
 
@@ -285,13 +298,6 @@ ALTER TABLE `recipes`
   ADD PRIMARY KEY (`id_recipe`);
 
 --
--- Indexes for table `tokens`
---
-ALTER TABLE `tokens`
-  ADD PRIMARY KEY (`id_token`),
-  ADD UNIQUE KEY `token` (`token`);
-
---
 -- Indexes for table `tools`
 --
 ALTER TABLE `tools`
@@ -318,7 +324,7 @@ ALTER TABLE `boxes`
 -- AUTO_INCREMENT for table `feedbacks`
 --
 ALTER TABLE `feedbacks`
-  MODIFY `id_feedback` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_feedback` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `ingredients`
@@ -330,19 +336,13 @@ ALTER TABLE `ingredients`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `recipes`
 --
 ALTER TABLE `recipes`
   MODIFY `id_recipe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `tokens`
---
-ALTER TABLE `tokens`
-  MODIFY `id_token` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tools`
