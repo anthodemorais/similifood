@@ -7,37 +7,41 @@ exports.default = (app, con) => {
 
     app.post('/recipe', eJwt({secret: config.secret}), (req, res) => {
         if (req.session.admin) return res.sendStatus(401); 
-        services.postRequest(req, res, con, "recipes", "name, steps, preparation_time, cook_time, difficulty");
+        services.postRequest(req, res, con, "recipes", "name, steps, preparation_time, cook_time, difficulty, ad_box");
     })
-    .get('/recipes/:recipe_id', (req, res) => {
-        services.getRequest(req, res, con, "recipes", "*", `id_recipe=${sanitizer.sanitize(req.params.recipe_id)}`).then((result) => {                
+    .get('/recipes/:box_id', (req, res) => {
+        let tools = {},
+            ingredients = {};
+        con.query(`SELECT * FROM recipes WHERE id_box=${sanitizer.sanitize(req.params.box_id)}`, (err, result, fields) => {
+            if (err) reject(err);
+
             con.query(`SELECT tool FROM tools AS t
                         INNER JOIN recipe_has_tools AS rht
                         ON t.id_tool = rht.tool_id
-                        WHERE rht.recipe_id = ?`, [sanitizer.sanitize(req.params.recipe_id)], (err, result2, fields) => {
+                        WHERE rht.recipe_id = ?`, [result[0].id_recipe], (err, result2, fields) => {
                 
                 if (err) {
                     res.status(500);
                     res.json({error: err});
                 }
 
-                result += result2;
+                tools = result2;
             })
 
             con.query(`SELECT ingredient FROM ingredients AS i
                         INNER JOIN recipe_has_ingredients AS rhi
                         ON i.id_ingredient = rhi.ingredient_id
-                        WHERE rhi.recipe_id = ?`, [sanitizer.sanitize(req.params.recipe_id)], (err, result3, fields) => {
+                        WHERE rhi.recipe_id = ?`, [result[0].id_recipe], (err, result3, fields) => {
                             
                 if (err) {
                     res.status(500);
                     res.json({error: err});
                 }
 
-                result += result3;
+                ingredients = result3;
 
                 res.status(200);
-                res.json({result: result});
+                res.json({result: result[0], tools: tools, ingredients: ingredients});
             })
 
         });        
@@ -99,7 +103,7 @@ exports.default = (app, con) => {
             {
                 services.addIntoTable("tools", "tool", [sanitizer.sanitize(req.body.tool)]).then((result2) => {
                     con.query(`INSERT INTO recipe_has_tools(tool_id, recipe_id)
-                                VALUES (?, ?, ?)`, [result2.insertId, sanitizer.sanitize(req.params.recipe_id)], (err, result3, fields) => {
+                                VALUES (?, ?)`, [result2.insertId, sanitizer.sanitize(req.params.recipe_id)], (err, result3, fields) => {
 
                         if (err) {
                             res.status(500);

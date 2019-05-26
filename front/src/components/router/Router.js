@@ -16,6 +16,7 @@ import Home from "../accueil/Home";
 import SignUp from "../login/SignUp";
 import Login from "../login/Login";
 import Contact from "../contact/Contact";
+import Admin from "../admin/Admin";
 
 
 export default class Routing extends Component {
@@ -50,6 +51,8 @@ export default class Routing extends Component {
             <Route exact path={`/concept`} component={Concept}/>
             {/* contact */}
             <Route exact path={`/contact`} component={Contact} />
+            {/* admin */}
+            <Route exact path={`/admin`} component={Admin} />
             <Route path={`/`} component={Footer}/>
         </Router>
     );

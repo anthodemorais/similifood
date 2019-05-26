@@ -72,6 +72,15 @@ form input
     padding-left: 5px;
 }
 
+form textarea
+{
+    height: 100px;
+    width: 300px;
+    border: 2px solid #1B264F;
+    resize: none;
+    border-radius: 10px;
+}
+
 form input:focus
 {
     outline: 2px solid #1B264F;

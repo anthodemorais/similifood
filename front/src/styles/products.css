@@ -1,7 +1,58 @@
-.boxes
+.container .boxes
 {
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 100px;
+    margin-top: 50px;
+}
+
+.filters
+{
+    display: flex;
+}
+
+.productsTitle
+{
+    margin-top: 150px;
+    display: flex;
+    align-items: center;
+}
+
+.productsTitle button
+{
+    margin-left: 50px;
+}
+
+.filters .filter
+{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.filters .filter label
+{
+    border-bottom: 2px solid #1B264F;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.filters .filter select
+{
+    width: 200px;
+    height: 30px;
+    border: 2px solid #1B264F;
+    background-color: #EB6543;
+    color: white;
+    font-family: "Zing Rust";
+    font-size: 20px;
+}
+
+.filters div
+{
+    width: 100%;
 }
 
 .boxes .box
@@ -10,14 +61,54 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 30%;
-    height: 70%;
-    border: 3px solid #ddd;
-    border-radius: 10px;
+    width: 15%;
+    height: 500px;
     margin-bottom: 50px;
+}
+
+.boxes .box div
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #1B264F;
+}
+
+.boxes .box .imgTitle
+{
+    border-radius: 50px 50px 0px 0px;
+    overflow: hidden;
+}
+
+.boxes .box .descButton
+{
+    width: calc(100% - 3px);
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border-radius: 0px 0px 50px 50px;
+    overflow: hidden;
 }
 
 .boxes .box img
 {
+    border-bottom: 2px solid #1B264F;
     width: 100%;
+    height: 150px;
+}
+
+.boxes .box a
+{
+    background-color: #EB6543;
+    width: 100%;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: 2px solid #1B264F;
+}
+
+.boxes .box p
+{
+    margin: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

@@ -44,8 +44,8 @@ export default class Login extends Component {
                 <div className="formContainer formLog container">
                     <h2>Identifiez-vous !</h2>
                     <form method="POST" onSubmit={(e) => {this.submit(e)}}>
-                        <label>Email: <br/><input type="text" name="email" onChange={e => this.inputChanged(e)} /></label>
-                        <label>Password: <br/>
+                        <label for="email">Email: <br/><input type="email" name="email" onChange={e => this.inputChanged(e)} /></label>
+                        <label for="password">Password: <br/>
                             <input type="password" name="password" onChange={e => this.inputChanged(e)} />
                             <img className="seePwd" src={seePwd} alt="Cliquez pour voir le mot de passe" />
                         </label>

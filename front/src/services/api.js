@@ -14,6 +14,7 @@ let api = {
                 results.json().then((json) => {
                     localStorage.setItem("token", json.token);
                     sessionStorage.setItem("id_user", json.id_user);
+                    localStorage.setItem("admin", json.admin);
                     api.isConnected = true;
                     resolve(json.token);
                 });
@@ -58,6 +59,18 @@ let api = {
             }).then((results) => {
                 results.json().then((json) => {
                     resolve(json.result);
+                });
+            });
+        });
+    },
+
+    getRecipeById: (id) => {
+        return new Promise((resolve, reject) => {
+            fetch(api.url + `recipes/${id}`, {
+                method: 'GET'
+            }).then((results) => {
+                results.json().then((json) => {
+                    resolve(json);
                 });
             });
         });
@@ -140,6 +153,23 @@ let api = {
                         adress: adress,
                         quantity: quantity
                     })
+            }).then((results) => {
+                results.json().then((json) => {
+                    resolve(json.result);
+                });
+            });
+        });
+    },
+
+    deleteProduct: (id) => {
+        return new Promise((resolve, reject) => {
+            fetch(api.url + `products/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                },
+                body: JSON.stringify({ admin: localStorage.getItem("admin") === "1"})
             }).then((results) => {
                 results.json().then((json) => {
                     resolve(json.result);

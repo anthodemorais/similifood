@@ -12,15 +12,16 @@ exports.default = (app, con) => {
         services.getRequest(req, res, con, "boxes", "*", `id_box=${sanitizer.sanitize(req.params.id)}`);
     })
     .post('/products', eJwt({secret: config.secret}), (req, res) => {
-        if (!req.session.admin) return res.sendStatus(401);
+        if (!req.body.admin) return res.sendStatus(401);
         services.postRequest(req, res, con, "boxes", "name, price, description, animal, img_name");
     })
     .put('/products/:id', eJwt({secret: config.secret}), (req, res) => {
-        if (!req.session.admin) return res.sendStatus(401);
+        if (!req.body.admin) return res.sendStatus(401);
         services.putRequest(req, res, con, "boxes", `id_box=${sanitizer.sanitize(req.params.id)}`)
     })
     .delete('/products/:id', eJwt({secret: config.secret}), (req, res) => {
-        if (!req.session.admin) return res.sendStatus(401);
+        console.log(req.body);
+        if (!req.body.admin) return res.sendStatus(401);
         services.deleteRequest(req, res, con, "boxes", `id_box=${sanitizer.sanitize(req.params.id)}`)
     });
 

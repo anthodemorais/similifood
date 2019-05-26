@@ -5,14 +5,11 @@ const sanitizer = require('sanitizer');
 
 exports.default = (app, con) => { 
 
-    app.post('/order', eJwt({secret: config.secret}), (req, res) => {
-
-        console.log(req.body);
-
-    var user_id  = sanitizer.sanitize(req.body.user_id),
-        box_id   = sanitizer.sanitize(req.body.box_id),
-        adress   = sanitizer.sanitize(req.body.adress),
-        quantity = sanitizer.sanitize(req.body.quantity);
+    app.post('/order', (req, res) => {
+        var user_id  = sanitizer.sanitize(req.body.user_id),
+            box_id   = sanitizer.sanitize(req.body.box_id),
+            adress   = sanitizer.sanitize(req.body.adress),
+            quantity = sanitizer.sanitize(req.body.quantity);
 
         var date_of_order = new Date();
         var dd = String(date_of_order.getDate()).padStart(2, '0');

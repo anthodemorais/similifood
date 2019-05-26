@@ -47,7 +47,7 @@ exports.default = (app, con) => {
                     req.session.id_user = result[0].id_user;
                     console.log(req.session);
                     res.status(200);
-                    res.json({token: token, id_user: result[0].id_user});
+                    res.json({token: token, id_user: result[0].id_user, admin: result[0].admin});
                 }
                 else
                 {

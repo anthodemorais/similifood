@@ -47,7 +47,6 @@ export default class Products extends Component {
     
       loadProducts() {
         api.getProducts().then(products => {
-          console.log(products);
           if (this.state.MaxPrice !== 0) {
             products = products.filter(product => product.price <= this.state.MaxPrice);
           }
@@ -61,50 +60,86 @@ export default class Products extends Component {
 
     getProducts() {
         api.getProducts().then((products) => {
+            api.getRecipeById(1).then((recipes) => {
+                console.log(recipes);
+                this.setState({recipes: recipes})
+            })
             console.log(products);
             this.setState({products: products});
         })
     }
 
+    addToCart(product) {
+        if (localStorage.getItem("token") !== null) {
+            let cart = localStorage.getItem("cart");
+
+            if (cart === null) {
+                localStorage.setItem("cart", JSON.stringify(product));
+            }
+            else {
+                let newCart = cart + JSON.stringify(product)
+                console.log(newCart);
+                localStorage.setItem("cart", newCart);
+            }
+    
+            this.setState({addedToCart: true});
+        }
+    }
+
     render() { 
         return (
-            <div className="boxes container">
-                <label for="category-select">Choose a category:</label>
-                <select id="category-select" value={this.state.value} onChange={event => {
-                    this.handleChange(event);
-                    }}>
-                    <option value="chien">Chien</option>
-                    <option value="chat">Chat</option>
-                </select>
-                <label for="category-selected">Limite de prix:</label>
-                <select id="category-selected" value={this.state.value} onChange={event => {
-                    this.handlePrice(event);
-                    }}>
-                    <option value="10">10€</option>
-                    <option value="20">20€</option>
-                    <option value="30">30€</option>
-                    <option value="40">40€</option>
-                    <option value="50">50€</option>
-                    <option value="60">60€</option>
-                    <option value="70">70€</option>
-                    <option value="80">80€</option>
-                </select>
-                <button onClick={() => {
-                    this.showAllProducts();
-                    }}>
-                    Enlever les filtres
-                </button>
-                {this.state.products.map((product) => (
-                    <div className="box" key={product.id_box}>
-                        <img src={require(`../../styles/IMAGES/${product.img_name}`)} alt={product.name} />
-                        <h2>{product.name}</h2>
-                        <p>{product.description}</p>
-                        <strong>{product.price}€</strong>
-                        <NavLink to={`/products/${product.id_box}`}>
-                            <button className="important">Voir le produit</button>
-                        </NavLink>
-                    </div>   
-                ))}
+            <div className="container">
+                <div className="productsTitle">
+                    <h2>Adaptez son régime en fonction de nos catégories !</h2>
+                    <button className="important" onClick={() => {
+                        this.showAllProducts();
+                        }}>
+                        Toutes nos box
+                    </button>
+                </div>
+                <div className="filters">
+                    <div className="filter">
+                        <label for="category-select">Votre animal:</label>
+                        <select id="category-select" value={this.state.value} onChange={event => {
+                            this.handleChange(event);
+                            }}>
+                            <option value="chien">Chien</option>
+                            <option value="chat">Chat</option>
+                        </select>
+                    </div>
+                    <div className="filter">
+                        <label for="category-selected">Limite de prix:</label>
+                        <select id="category-selected" value={this.state.value} onChange={event => {
+                            this.handlePrice(event);
+                            }}>
+                            <option value="10">10€</option>
+                            <option value="20">20€</option>
+                            <option value="30">30€</option>
+                            <option value="40">40€</option>
+                            <option value="50">50€</option>
+                            <option value="60">60€</option>
+                            <option value="70">70€</option>
+                            <option value="80">80€</option>
+                        </select>
+                    </div>
+                </div>
+                <div className="boxes container">
+                    {this.state.products.map((product) => (
+                        <div className="box" key={product.id_box}>
+                            <div className="imgTitle">
+                                <img src={require(`../../styles/IMAGES/${product.img_name}`)} alt={product.name} />
+                                <h2>{product.name}</h2>
+                            </div>
+                            <div className="descButton">
+                                <p>{product.description}</p>
+                                <NavLink to={`/products/${product.id_box}`}>
+                                    Voir le produit
+                                </NavLink>
+                            </div>
+                            <button className="important" onClick={(e) => this.addToCart(product)}>Ajouter au panier</button>
+                        </div>   
+                    ))}
+                </div>
             </div>
          );
     }

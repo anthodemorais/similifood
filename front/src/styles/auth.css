@@ -151,3 +151,8 @@ label[for="remember"]
     left: calc(100% + 2px);
     bottom: 25px;
 }
+
+.formSign form label
+{
+    margin-bottom: 10px;
+}

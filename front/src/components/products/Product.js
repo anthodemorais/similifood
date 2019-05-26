@@ -12,20 +12,32 @@ export default class Product extends Component {
             clientSecret: "",
             paymentIntent: false,
             addedToCart: false,
-            message: ""
+            message: "",
+            recipe: {},
+            tools: [],
+            ingredients: []
         };
         this.getProduct();
+        this.getRecipe();
     }
 
     getProduct() {
         const id = this.props.match.params.id
         api.getProductById(id).then(product => {
+            console.log(product[0].img_name);
             this.setState({product: product[0]});
         })
     }
 
+    getRecipe() {
+        const id = this.props.match.params.id
+        api.getRecipeById(id).then(result => {
+            this.setState({recipe: result.result, tools: result.tools, ingredients: result.ingredients});
+        })
+    }
+
     displayPayment() {
-        if (this.state.paymentIntent && localStorage.getItem("token") !== null) {
+        if (this.state.paymentIntent) {
             return (
                 <StripeProvider apiKey="pk_test_xUMmKTnmihV6GYUIJTMESQAz">
                     <div className="example">
@@ -35,10 +47,6 @@ export default class Product extends Component {
                     </div>
                 </StripeProvider>
             )
-        }
-        else if (this.state.paymentIntent && localStorage.getItem("token") === null) {
-            if (this.state.message !== "Vous devez être connecté pour acheter")
-            this.setState({ message: "Vous devez être connecté pour acheter" });
         }
     }
 
@@ -73,6 +81,16 @@ export default class Product extends Component {
             <div className="viewBox container">
                 <h2>{this.state.product.name}</h2>
                 <p>{this.state.product.description}</p>
+                <span>Ustensiles :</span>
+                <ul>
+                    {this.state.tools.map(tool => <li>{tool.tool}</li>)}
+                </ul>
+                <span>Ingrédients :</span>
+                <ul>
+                    {this.state.ingredients.map(ingredient => <li>{ingredient.ingredient}</li>)}
+                </ul>
+                <p>Recette : {this.state.recipe.steps}</p>
+                <span>Temps de préparation : {this.state.recipe.preparation_time}</span>
                 <strong>{this.state.product.price}€</strong>
                 <button className="important" onClick={() => this.setState({paymentIntent: true})}>Acheter</button>
                 <span>OU</span>
