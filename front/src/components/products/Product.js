@@ -21,7 +21,7 @@ export default class Product extends Component {
             feedbacks: [],
             steps: [],
             id: this.props.match.params.id,
-            img: ""
+            img: "",
         };
         this.getProduct();
         this.getRecipe();
@@ -122,7 +122,7 @@ export default class Product extends Component {
                             <div>
                                 <strong>Ingrédients :</strong>
                                 <ul>
-                                    {this.state.ingredients.map(ingredient => <li> • {ingredient.ingredient}</li>)}
+                                    {this.state.ingredients.map(ingredient => <li> • {ingredient.quantity} de {ingredient.ingredient}</li>)}
                                 </ul>
                             </div>
                         </div>

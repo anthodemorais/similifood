@@ -6,7 +6,7 @@
     height: 200vh;
     width: 100%;
     padding-left: 15%;
-    margin-top: 150px;
+    margin-top: 50px;
 }
 
 .container .viewBox ul
@@ -41,6 +41,9 @@
 .viewBox .recipe
 {
     width: 50%;
+    overflow: scroll;
+    height: 100%;
+
 }
 
 .viewBox .title > div
@@ -52,7 +55,7 @@
 
 .viewBox .title > div:nth-child(1)
 {
-    border-bottom: 2px solid #1B264F;
+    border-bottom: 2px solid #EB6543;
 }
 
 .viewBox .title .cartBtn

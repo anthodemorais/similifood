@@ -31,7 +31,7 @@ exports.default = (app, con) => {
                 tools = result2;
             })
 
-            con.query(`SELECT ingredient FROM ingredients AS i
+            con.query(`SELECT ingredient, quantity FROM ingredients AS i
                         INNER JOIN recipe_has_ingredients AS rhi
                         ON i.id_ingredient = rhi.ingredient_id
                         WHERE rhi.recipe_id = ?`, [result[0].id_recipe], (err, result3, fields) => {

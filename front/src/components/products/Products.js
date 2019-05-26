@@ -10,6 +10,9 @@ export default class Products extends Component {
             products: [],
             MaxPrice: 0,
             pet: "",
+            weight: '',
+			fur: '',
+			age: ''
         }
         this.getProducts()
     }
@@ -37,33 +40,60 @@ export default class Products extends Component {
         this.setState({MaxPrice: event.target.value});
         this.loadProducts();
       }
-      showAllProducts() {
-        sessionStorage.removeItem("price");
-        sessionStorage.removeItem("pet");
-        this.setState({MaxPrice: 0});
-        this.setState({pet: ""});
-        this.loadProducts();
-      }
+
+      handleWeight(event) {
+		console.log(event.target.value);
+		sessionStorage.setItem('weight', event.target.value);
+		this.setState({ weight: event.target.value });
+		this.loadProducts();
+	}
+	handleFur(event) {
+		sessionStorage.setItem('fur', event.target.value);
+		this.setState({ fur: event.target.value });
+		this.loadProducts();
+	}
+	handleAge(event) {
+		sessionStorage.setItem('age', event.target.value);
+		this.setState({ age: event.target.value });
+		this.loadProducts();
+	}
+
+    showAllProducts() {
+		sessionStorage.removeItem('price');
+		sessionStorage.removeItem('pet');
+		this.setState({ MaxPrice: 0 });
+		this.setState({ pet: '' });
+		this.setState({ weight: '' });
+		this.setState({ fur: '' });
+		this.setState({ age: '' });
+		this.loadProducts();
+	}
     
-      loadProducts() {
-        api.getProducts().then(products => {
-          if (this.state.MaxPrice !== 0) {
-            products = products.filter(product => product.price <= this.state.MaxPrice);
-          }
-          if (this.state.pet !== "") {
-            products = products.filter(product => product.animal === this.state.pet);
-          }
-    
-          this.setState({products: products});
-        });
-      }
+    loadProducts() {
+		api.getProducts().then((products) => {
+			if (this.state.MaxPrice !== 0) {
+				products = products.filter((product) => product.price <= this.state.MaxPrice);
+			}
+			if (this.state.pet !== '') {
+				products = products.filter((product) => product.animal === this.state.pet);
+			}
+			if (this.state.fur !== '') {
+				products = products.filter((product) => product.animal === this.state.fur);
+			}
+			if (this.state.weight !== '') {
+				products = products.filter((product) => product.weight === this.state.weight);
+			}
+			if (this.state.age !== '') {
+				products = products.filter((product) => product.animal === this.state.age);
+			}
+
+			console.log('test1');
+			this.setState({ products: products });
+		});
+	}
 
     getProducts() {
         api.getProducts().then((products) => {
-            api.getRecipeById(1).then((recipes) => {
-                console.log(recipes);
-                this.setState({recipes: recipes})
-            })
             console.log(products);
             this.setState({products: products});
         })
@@ -88,7 +118,7 @@ export default class Products extends Component {
 
     render() { 
         return (
-            <div className="container">
+            <div className="container productsContainer">
                 <div className="productsTitle">
                     <h2>Adaptez son régime en fonction de nos catégories !</h2>
                     <button className="important" onClick={() => {
@@ -122,6 +152,87 @@ export default class Products extends Component {
                             <option value="80">80€</option>
                         </select>
                     </div>
+                    <div className="filter">
+						<strong>En fonction du poids</strong>
+						<button
+							value="souspoids"
+							className="important"
+							onClick={(event) => {
+								this.handleWeight(event);
+							}}
+						>
+							en sous-poids
+						</button>
+						<button
+							value="normal"
+							className="important"
+							onClick={(event) => {
+								this.handleWeight(event);
+							}}
+						>
+							normal
+						</button>
+						<button
+							value="surpoids"
+							className="important"
+							onClick={(event) => {
+								this.handleWeight(event);
+							}}
+						>
+							en surpoids
+						</button>
+					</div>
+					<div className="filter">
+						<strong>En fonction de l'âge</strong>
+						<button
+							value="adulte"
+							className="important"
+							onClick={(event) => {
+								this.handleAge(event);
+							}}
+						>
+							adulte
+						</button>
+						<button
+							value="bebe"
+							className="important"
+							onClick={(event) => {
+								this.handleAge(event);
+							}}
+						>
+							bebe
+						</button>
+						<button
+							value="senior"
+							className="important"
+							onClick={(event) => {
+								this.handleAge(event);
+							}}
+						>
+							senior
+						</button>
+					</div>
+					<div className="filter">
+						<strong>En fonction du poil</strong>
+						<button
+							value="long"
+							className="important"
+							onClick={(event) => {
+								this.handleFur(event);
+							}}
+						>
+							poil long
+						</button>
+						<button
+							value="court"
+							className="important"
+							onClick={(event) => {
+								this.handleFur(event);
+							}}
+						>
+							poil court
+						</button>
+					</div>
                 </div>
                 <div className="boxes container">
                     {this.state.products.map((product) => (
