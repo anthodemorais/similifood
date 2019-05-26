@@ -1,0 +1,60 @@
+.container .allFeedback
+{
+    overflow: scroll;
+    width: 100%;
+}
+
+.allFeedback .fbTitle
+{
+    border: 2px solid #1B264F;
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+}
+
+.allFeedback .fbTitle h2
+{
+    font-size: 50px;
+    width: 100%;
+    margin: 0;
+}
+
+.container .add
+{
+    width: 100%;
+    display: flex;
+    font-family: "Zing Rust";
+    height: max-content;
+    margin-top: -15px;
+    height: 350px;
+}
+
+.container .add div
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.container .add div h2
+{
+    font-size: 35px;
+}
+
+.container .add img
+{
+    width: 45%;
+    border-right: 2px solid #1B264F;
+}
+
+.container .list
+{
+    width: 100%;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+}

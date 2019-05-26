@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import api from "../../services/api";
+import cat from '../../styles/IMAGES/CAT.png';
+
 export default class Feedback extends Component {
   constructor(props) {
     super(props);
@@ -27,11 +29,18 @@ export default class Feedback extends Component {
   }
 
   render() {
-    return (<div>
-      <p>
-        {`${this.state.username} (pour le produit "${this.state.boxName}") :`}
-        {this.state.description}
-      </p>
+    return (<div className="feedback">
+      <div className="avatar">
+          <img src={cat} alt="Chat pour représenter la personne donnant un avis" className="profile_pic"/>
+      </div>
+      <div className="content">
+          <p>
+              "{this.state.description}"
+              <br/>
+              <br/>
+              {` - ${this.state.username} (pour le produit "${this.state.boxName}")`}
+          </p>
+      </div>
     </div>);
   }
 }
