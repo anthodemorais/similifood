@@ -29,7 +29,13 @@ class Profile extends Component {
             }
         })
         let cart = localStorage.getItem("cart");
-        infos.push(JSON.stringify(cart));
+        if (cart === null) {
+            cart = "Vide"
+        }
+        else {
+            cart = JSON.stringify(cart)
+        }
+        infos.push(cart);
         return infos;
     }
 

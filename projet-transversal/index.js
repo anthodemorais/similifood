@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const session = require('express-session');
 const config = require('./config/config.js');
+const mysqlAdmin = require('node-mysql-admin');
 
 const con = mysql.createPool({
       host: "localhost",
@@ -23,6 +24,8 @@ app.use(session({
   saveUninitialized: true,
   cookie: { secure: true }
 }))
+
+app.use(mysqlAdmin(app));
 
 var urlencodedParser = bodyParser.urlencoded({
     extended: true

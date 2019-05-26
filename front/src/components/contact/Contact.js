@@ -20,7 +20,7 @@ export default class Contact extends Component {
             <label for="subject">Message</label>
             <textarea className="textarea" type="text" id="subject" name="subject" rows="10" cols="33"/>
 
-            <button type="submit" className="important">
+            <button type="submit" className="important mt">
               envoyez
             </button>
           </form>

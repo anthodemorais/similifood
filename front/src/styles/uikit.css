@@ -4,6 +4,19 @@
     src: url("./POLICE/Zing_Rust/ZingRustDemo-Base.otf");
 }
 
+button:not(.important)
+{
+    border: 2px solid #1B264F;
+    width: 150px;
+    height: 40px;
+    font-family: "Zing Rust";
+    background-color: white;
+    border-radius: 25px;
+    font-size: 15px;
+    color: #1B264F;
+    cursor: pointer;
+}
+
 .important
 {
     position: relative;
@@ -35,6 +48,11 @@
 .important:active:before
 {
     bottom: 0px;
+}
+
+.mt
+{
+    margin-top: 20px;
 }
 
 /* .important:focus:before

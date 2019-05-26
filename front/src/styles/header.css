@@ -68,14 +68,14 @@ ul{
 .cap{
 	text-transform: capitalize;
 }
-.accessibilityIcon
+header .accessibilityIcon
 {
     position: fixed;
-    width: 100px;
+    width: 100px !important;
     top: 150px;
     left: 10px;
-    border: 0;
-    background: none;
+    border: 0 !important;
+    background: none !important;
     z-index: 5;
 }
 

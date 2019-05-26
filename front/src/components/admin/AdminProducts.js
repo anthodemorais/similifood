@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import api from '../../services/api';
+import '../../styles/admin.css';
 
 class AdminProducts extends Component {
     constructor(props) {
@@ -9,7 +10,8 @@ class AdminProducts extends Component {
             name: "",
             description: "",
             price: "",
-            img_name: ""
+            img_name: "",
+            updateForm: false
         }
         this.getProducts();
     }
@@ -24,6 +26,12 @@ class AdminProducts extends Component {
     deleteProduct(e) {
         api.deleteProduct(e.target.id).then(console.log);
     }
+
+    // displayUpdt() {
+    //     if (this.state.updateForm) {
+    //         return ()
+    //     }
+    // }
 
     inputChanged(e) {
         this.setState({
@@ -54,14 +62,24 @@ class AdminProducts extends Component {
                         <th>Nom</th>
                         <th>Description</th>
                         <th>Prix</th>
+                        <th>Animal</th>
+                        <th>Image</th>
+                        <th>Age</th>
+                        <th>Poids</th>
+                        <th>Fourrure</th>
                     </tr>
                 {this.state.products.map((product) => (
                     <tr key={product.id_box}>
                         <td>{product.name}</td>
                         <td>{product.description}</td>
                         <td>{product.price}€</td>
-                        <td><button onClick={(e) => this.deleteProduct(e)} id={product.id_box}>Supprimer</button></td>
-                        <td><button onClick={(e) => this.updateProduct(e)} id={product.id_box}>Modifier</button></td>
+                        <td>{product.animal}</td>
+                        <td>{product.img_name}</td>
+                        <td>{product.age}</td>
+                        <td>{product.weight}</td>
+                        <td>{product.fur}</td>
+                        <button onClick={(e) => this.deleteProduct(e)} id={product.id_box}>Supprimer</button>
+                        <button onClick={(e) => this.updateProduct(e)} id={product.id_box}>Modifier</button>
                     </tr>   
                 ))}
                 </table>

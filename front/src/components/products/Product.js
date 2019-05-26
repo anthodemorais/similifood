@@ -104,13 +104,13 @@ export default class Product extends Component {
                 <p>Recette : {this.state.recipe.steps}</p>
                 <span>Temps de préparation : {this.state.recipe.preparation_time}</span>
                 <strong>{this.state.product.price}€</strong>
-                <button className="important" onClick={() => this.setState({paymentIntent: true})}>Acheter</button>
+                <button className="important mt" onClick={() => this.setState({paymentIntent: true})}>Acheter</button>
                 <span>OU</span>
                 <button onClick={() => this.addToCart()}>Ajouter au panier</button>
                 {this.displayPayment()}
                 {this.displayMessage()}
-                <AddFeedback box_id={this.props.match.params.id} />
                 <h3>Les avis pour ce produit</h3>
+                <AddFeedback box_id={this.props.match.params.id} />
                 {
                     this.state.feedbacks.map(feedback => {
                     return (<Feedback id={feedback.id_feedback} userId={feedback.user_id} content={feedback.content} boxId={feedback.box_id}/>);

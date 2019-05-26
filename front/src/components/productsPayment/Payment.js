@@ -34,11 +34,11 @@ class Payment extends Component {
   }
 
   render() {
-    if (this.state.complete) return <h1>Purchase Complete</h1>;
+    if (this.state.complete) return <h1>Paiement Terminé, Merci !</h1>;
 
     return (
       <div className="checkout">
-        <p>Would you like to complete the purchase?</p>
+        <p>Completez le formulaire de paiement</p>
         <label for="name">Nom :</label>
         <input type="text" name="name" onChange={e => this.inputChanged(e)} />
         <label for="adress">Adresse complète :</label>
@@ -46,7 +46,7 @@ class Payment extends Component {
         <label for="quantity">Quantitée :</label>
         <input type="number" value="1" name="quantity" onChange={e => this.inputChanged(e)} />
         <CardElement />
-        <button onClick={this.submit}>Send</button>
+        <button className="important mt" onClick={this.submit}>Payer</button>
       </div>
     );
   }
