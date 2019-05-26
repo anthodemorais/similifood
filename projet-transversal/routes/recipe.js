@@ -13,7 +13,10 @@ exports.default = (app, con) => {
         let tools = {},
             ingredients = {};
         con.query(`SELECT * FROM recipes WHERE id_box=${sanitizer.sanitize(req.params.box_id)}`, (err, result, fields) => {
-            if (err) reject(err);
+            if (err) {
+                res.status(500);
+                res.json({error: err});
+            }
 
             con.query(`SELECT tool FROM tools AS t
                         INNER JOIN recipe_has_tools AS rht

@@ -3,6 +3,7 @@ import api from '../../services/api';
 import Payment from '../productsPayment/Payment';
 import {Elements, StripeProvider} from 'react-stripe-elements';
 import AddFeedback from '../avis/AddFeedback';
+import Feedback from "../avis/Feedback";
 
 export default class Product extends Component {
     constructor(props) {
@@ -15,26 +16,37 @@ export default class Product extends Component {
             message: "",
             recipe: {},
             tools: [],
-            ingredients: []
+            ingredients: [],
+            feedbacks: [],
+            id: this.props.match.params.id
         };
         this.getProduct();
         this.getRecipe();
+        this.loadFeedback(this.props.match.params.id);
     }
 
     getProduct() {
-        const id = this.props.match.params.id
-        api.getProductById(id).then(product => {
+        api.getProductById(this.state.id).then(product => {
             console.log(product[0].img_name);
             this.setState({product: product[0]});
         })
     }
 
     getRecipe() {
-        const id = this.props.match.params.id
-        api.getRecipeById(id).then(result => {
+        api.getRecipeById(this.state.id).then(result => {
             this.setState({recipe: result.result, tools: result.tools, ingredients: result.ingredients});
         })
     }
+
+    loadFeedback(id) {
+        api.getFeedbacks().then(feedbacks => {
+          let data = feedbacks.result;
+    
+          let finaldata = data.filter(feedback => feedback.box_id === id);
+    
+          this.setState({feedbacks: finaldata});
+        });
+      }
 
     displayPayment() {
         if (this.state.paymentIntent) {
@@ -42,7 +54,7 @@ export default class Product extends Component {
                 <StripeProvider apiKey="pk_test_xUMmKTnmihV6GYUIJTMESQAz">
                     <div className="example">
                         <Elements>
-                            <Payment price={this.state.product.price} box_id={this.props.match.params.id} />
+                            <Payment price={this.state.product.price} box_id={this.state.id} />
                         </Elements>
                     </div>
                 </StripeProvider>
@@ -98,6 +110,12 @@ export default class Product extends Component {
                 {this.displayPayment()}
                 {this.displayMessage()}
                 <AddFeedback box_id={this.props.match.params.id} />
+                <h3>Les avis pour ce produit</h3>
+                {
+                    this.state.feedbacks.map(feedback => {
+                    return (<Feedback id={feedback.id_feedback} userId={feedback.user_id} content={feedback.content} boxId={feedback.box_id}/>);
+                    })
+                }
             </div>
         );
     }
