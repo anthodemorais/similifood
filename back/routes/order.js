@@ -28,6 +28,9 @@ exports.default = (app, con) => {
             res.json({result: result});
         });
     })
+    .get('/order/:user_id', eJwt({secret: config.secret}), (req, res) => {
+        services.getRequest(req, res, con, "orders", "*", `user_id=${sanitizer.sanitize(req.params.user_id)}`)
+    })
     .delete('/order/:id', eJwt({secret: config.secret}), (req, res) => {
         services.deleteRequest(req, res, con, "orders", `id_order=${sanitizer.sanitize(req.params.id)}`)
     });

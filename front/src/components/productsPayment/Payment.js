@@ -39,13 +39,17 @@ class Payment extends Component {
     return (
       <div className="checkout">
         <p>Completez le formulaire de paiement</p>
-        <label for="name">Nom :</label>
+        <label for="name">Nom :</label><br/>
         <input type="text" name="name" onChange={e => this.inputChanged(e)} />
-        <label for="adress">Adresse complète :</label>
+        <br/>
+        <label for="adress">Adresse complète :</label><br/>
         <input type="text" name="adress" onChange={e => this.inputChanged(e)} />
-        <label for="quantity">Quantitée :</label>
+        <br/>
+        <label for="quantity">Quantitée :</label><br/>
         <input type="number" value="1" name="quantity" onChange={e => this.inputChanged(e)} />
+        <br/>
         <CardElement />
+        <br/>
         <button className="important mt" onClick={this.submit}>Payer</button>
       </div>
     );

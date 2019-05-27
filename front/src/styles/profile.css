@@ -1,0 +1,24 @@
+.profileContainer
+{
+    margin-bottom: 50px;
+}
+
+.updateMail label, .updatePwd label
+{
+    margin-bottom: 10px;
+}
+
+.updateMail input, .updatePwd input
+{
+    margin-top: 0;
+}
+
+.updateMail, .updatePwd
+{
+    margin-top: 50px;
+}
+
+.cartBtn
+{
+    margin-bottom: 30px;
+}

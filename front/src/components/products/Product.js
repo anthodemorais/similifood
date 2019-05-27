@@ -126,7 +126,7 @@ export default class Product extends Component {
                                 </ul>
                             </div>
                         </div>
-                        <p>Recette :<br/>
+                        <p><strong>Recette :</strong><br/>
                             <ol>
                                 {this.state.steps.map(step => <li>{step}</li>)}
                             </ol>
@@ -137,6 +137,7 @@ export default class Product extends Component {
                         {this.displayMessage()}
                     </div>
                     <div className="feedbacks">
+                        <img src={this.state.img} alt={this.state.product.name} />
                         <h3>Les avis pour ce produit</h3>
                         <AddFeedback box_id={this.props.match.params.id} />
                         {this.state.feedbacks.map(feedback => (<Feedback id={feedback.id_feedback} userId={feedback.user_id} content={feedback.content} boxId={feedback.box_id} />))}

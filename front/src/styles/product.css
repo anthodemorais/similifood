@@ -34,6 +34,7 @@
 {
     font-size: 50px;
     margin: 0;
+    letter-spacing: 2px;
 }
 
 .viewBox .title p
@@ -74,6 +75,14 @@
     border-left: 2px solid #1B264F;
 }
 
+.viewBox .feedbacks > img
+{
+    width: 300px;
+    border: 2px solid #1B264F;
+    border-radius: 10px;
+    box-shadow: 10px 10px 0px 0px #EB6543;
+}
+
 .viewBox .feedbacks button
 {
     margin-bottom: 20px;
@@ -82,9 +91,16 @@
 .viewBox .price
 {
     font-size: 50px;
+    text-shadow: 0px 5px 0px #EB6543;
 }
 
 .feedbacks h3
 {
     font-size: 35px;
+}
+
+.viewBox p > strong
+{
+    font-family: "Zing Rust";
+    font-size: 20px;
 }

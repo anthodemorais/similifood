@@ -35,7 +35,7 @@ export default class Header extends Component {
             return (
                 <div>
                     <div className="panier">
-                        <NavLink to={`/panier`} className="blod cap">
+                        <NavLink to={`/cart`} className="blod cap">
                             <img className="imgbag" src={bag} alt="Logo symbolisant le panier du client"/>
                             panier
                         </NavLink>

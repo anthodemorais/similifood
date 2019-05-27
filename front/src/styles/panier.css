@@ -1,0 +1,20 @@
+.cartPage div
+{
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cartPage img
+{
+    width: 70px;
+}
+
+.cartPage h2
+{
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}

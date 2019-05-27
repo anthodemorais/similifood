@@ -68,17 +68,16 @@ form
     align-items: center;
 }
 
-form label
+form label, .checkout label
 {
     font-family: Verdana;
     font-size: 15px;
     font-weight: bold;
     text-align: left;
-    margin-bottom: 30px;
     color: #1B264F;
 }
 
-form input
+form input, .checkout input
 {
     font-family: Verdana;
     font-size: 15px;
@@ -86,11 +85,12 @@ form input
     width: 300px;
     border-radius: 10px;
     margin-top: 15px;
+    margin-bottom: 30px;
     border: 2px solid #1B264F;
     padding-left: 5px;
 }
 
-form textarea
+form textarea, .checkout textarea
 {
     height: 100px;
     width: 300px;
@@ -99,12 +99,12 @@ form textarea
     border-radius: 10px;
 }
 
-form input:focus
+form input:focus, .checkout input:focus
 {
     outline: 2px solid #1B264F;
 }
 
-form button
+form button, .checkout button
 {
     display: block;
     margin: auto;

@@ -243,7 +243,7 @@ export default class Products extends Component {
                             </div>
                             <div className="descButton">
                                 <p>{product.description}</p>
-                                <p>{product.price}€</p>
+                                <p className="price">{product.price}€</p>
                                 <NavLink to={`/products/${product.id_box}`}>
                                     Voir le produit
                                 </NavLink>

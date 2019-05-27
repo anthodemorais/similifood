@@ -128,7 +128,7 @@ let api = {
             fetch(api.url + `user/${id}`, {
                 method: 'GET',
                 headers: {
-                    "Content-Type": "application/json",
+                    "Content-Type": "application/json"
                 },
             }).then((results) => {
                 results.json().then((json) => {
@@ -170,6 +170,48 @@ let api = {
                     "Authorization": "Bearer " + localStorage.getItem("token")
                 },
                 body: JSON.stringify({ admin: localStorage.getItem("admin") === "1"})
+            }).then((results) => {
+                results.json().then((json) => {
+                    resolve(json.result);
+                });
+            });
+        });
+    },
+
+    updateEmail: (id, email) => {
+        return new Promise((resolve, reject) => {
+            fetch(api.url + "user/" + id, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                },
+                body: JSON.stringify({email: email})
+            }).then(response => resolve(response));
+        }
+    )},
+
+    updatePwd: (id, pwd) => {
+        return new Promise((resolve, reject) => {
+            fetch(api.url + "user/" + id, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                },
+                body: JSON.stringify({password: pwd})
+            }).then(response => resolve(response));
+        }
+    )},
+
+    getMyOrders: () => {
+        return new Promise((resolve, reject) => {
+            fetch(api.url + `order/${sessionStorage.getItem("id_user")}`, {
+                method: 'GET',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                },
             }).then((results) => {
                 results.json().then((json) => {
                     resolve(json.result);
