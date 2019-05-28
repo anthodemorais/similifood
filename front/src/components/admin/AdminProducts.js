@@ -9,7 +9,7 @@ class AdminProducts extends Component {
             products: [],
             pname: "",
             description: "",
-            price: "",
+            price: 0.0,
             img_name: "",
             age: "",
             weight: "",
@@ -21,6 +21,7 @@ class AdminProducts extends Component {
             diffuculty: 0,
             ingredients: "",
             tools: "",
+            quantities: "",
             updateForm: false
         }
         this.getProducts();
@@ -51,9 +52,23 @@ class AdminProducts extends Component {
 
     submit(e) {
         e.preventDefault();
-        let params = [this.state.pname, this.state.description, this.state.price, this.state.animal, this.state.img_name, this.state.age, this.state.weight, this.state.fur]
+        console.log(parseFloat(this.state.price));
+        let params = [this.state.pname, parseFloat(this.state.price), this.state.description, this.state.animal, this.state.img_name, this.state.age, this.state.weight, this.state.fur]
         api.addProduct(...params).then(result => {
-            //add recipe puis add les ingredients
+            let id = result.insertId;
+            api.addRecipe(this.state.rname, this.state.steps, this.state.ptime, this.state.ctime, this.state.difficulty, id).then(result => {
+                let id_recipe = result.insertId;
+                let ingredients = this.state.ingredients.split(", ");
+                let quantities = this.state.quantities.split(", ");
+
+
+                Promise.all(ingredients.map((value, key) => api.addIngredientForRecipe(id_recipe, value, quantities[key]))).then(values => {
+                    let tools = this.state.tools.split(", ");                    
+                    Promise.all(tools.map((value) => api.addToolForRecipe(id_recipe, value)))
+                })
+
+                console.log(result);
+            })
         })
     }
 
@@ -86,6 +101,7 @@ class AdminProducts extends Component {
                             <label for="ctime">Temps de cuisson: <br/><input type="text" name="ctime" onChange={e => this.inputChanged(e)} /></label>
                             <label for="difficulty">Difficulté: <br/><input type="number" name="difficulty" onChange={e => this.inputChanged(e)} /></label>
                             <label for="ingredients">Liste des ingrédients séparés par une virgule: <br/><input type="text" name="ingredients" onChange={e => this.inputChanged(e)} /></label>
+                            <label for="ingredients">Liste des quantités séparés par une virgule: <br/><input type="text" name="quantities" onChange={e => this.inputChanged(e)} /></label>
                             <label for="tools">Liste des ustensiles séparés par une virgule: <br/><input type="text" name="tools" onChange={e => this.inputChanged(e)} /></label>
                         </form>
                     </div>

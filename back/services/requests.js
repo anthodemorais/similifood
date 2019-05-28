@@ -66,12 +66,14 @@ class Services {
     }
 
     postRequest(req, res, con, table, columns) {
-    
         var values = [];
     
         for (var key in req.body)
         {
-            values.push(sanitizer.sanitize(req.body[key]));
+            if (key !== "admin" && table !== "users")
+            {
+                values.push(sanitizer.sanitize(req.body[key]));
+            }
         }
     
         this.addIntoTable(con, table, columns, values).then((result) => {

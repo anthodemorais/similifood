@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import  { NavLink } from 'react-router-dom';
 import api from "../../services/api";
 import '../../styles/products.css';
+import dog from "../../styles/IMAGES/DOG.png";
+import cat from "../../styles/IMAGES/CAT.png";
+import bannerCat from "../../styles/IMAGES/bannerCat.png";
+import bannerDog from "../../styles/IMAGES/bannerDog.png";
 
 export default class Products extends Component {
     constructor(props) {
@@ -114,145 +118,181 @@ export default class Products extends Component {
     
             this.setState({addedToCart: true});
         }
-    }
+	}
+	
+	goDog() {
+		sessionStorage.setItem("pet", "chien");
+		this.setState({pet: "chien"});
+		this.loadProducts();
+	}
+	
+	goCat() {
+		sessionStorage.setItem("pet", "chat");
+		this.setState({pet: "chat"});
+		this.loadProducts();
+	}
 
-    render() { 
-        return (
-            <div className="container productsContainer">
-                <div className="productsTitle">
-                    <h2>Adaptez son régime en fonction de nos catégories !</h2>
-                    <button className="important" onClick={() => {
-                        this.showAllProducts();
-                        }}>
-                        Toutes nos box
-                    </button>
-                </div>
-                <div className="filters">
-                    <div className="filter">
-                        <label for="category-select">Votre animal:</label>
-                        <select id="category-select" value={this.state.value} onChange={event => {
-                            this.handleChange(event);
-                            }}>
-                            <option value="chien">Chien</option>
-                            <option value="chat">Chat</option>
-                        </select>
-                    </div>
-                    <div className="filter">
-                        <label for="category-selected">Limite de prix:</label>
-                        <select id="category-selected" value={this.state.value} onChange={event => {
-                            this.handlePrice(event);
-                            }}>
-                            <option value="10">10€</option>
-                            <option value="20">20€</option>
-                            <option value="30">30€</option>
-                            <option value="40">40€</option>
-                            <option value="50">50€</option>
-                            <option value="60">60€</option>
-                            <option value="70">70€</option>
-                            <option value="80">80€</option>
-                        </select>
-                    </div>
-                    <div className="filter">
-						<strong>En fonction du poids</strong>
-						<button
-							value="souspoids"
-							className="important"
-							onClick={(event) => {
-								this.handleWeight(event);
-							}}
-						>
-							en sous-poids
-						</button>
-						<button
-							value="normal"
-							className="important"
-							onClick={(event) => {
-								this.handleWeight(event);
-							}}
-						>
-							normal
-						</button>
-						<button
-							value="surpoids"
-							className="important"
-							onClick={(event) => {
-								this.handleWeight(event);
-							}}
-						>
-							en surpoids
-						</button>
+    render() {
+		return (<div className="container productsContainer">
+		  {
+			this.state.pet === ""
+			  ? (<div>
+				<h2>Des boxs pour votre chien ou votre chat ??</h2>
+				<div className="products  container">
+				  <div>
+					<div className="product">
+					  <img src={dog} alt="Chien pour accéder aux produits proposés pour les chiens"/>
+					  <button className="important productButton" onClick={event => {
+						  this.goDog();
+						}}>
+						Chien
+					  </button>
 					</div>
-					<div className="filter">
-						<strong>En fonction de l'âge</strong>
-						<button
-							value="adulte"
-							className="important"
-							onClick={(event) => {
-								this.handleAge(event);
-							}}
-						>
-							adulte
-						</button>
-						<button
-							value="bebe"
-							className="important"
-							onClick={(event) => {
-								this.handleAge(event);
-							}}
-						>
-							bebe
-						</button>
-						<button
-							value="senior"
-							className="important"
-							onClick={(event) => {
-								this.handleAge(event);
-							}}
-						>
-							senior
-						</button>
+					<div className="product">
+					  <img src={cat} alt="Chien pour accéder aux produits proposés pour les chats"/>
+					  <button className="important productButton" onClick={event => {
+						  this.goCat();
+						}}>
+						Chat
+					  </button>
 					</div>
-					<div className="filter">
-						<strong>En fonction du poil</strong>
-						<button
-							value="long"
-							className="important"
-							onClick={(event) => {
-								this.handleFur(event);
-							}}
-						>
-							poil long
-						</button>
-						<button
-							value="court"
-							className="important"
-							onClick={(event) => {
-								this.handleFur(event);
-							}}
-						>
-							poil court
-						</button>
-					</div>
-                </div>
-                <div className="boxes container">
-                    {this.state.products.map((product) => (
-                        <div className="box" key={product.id_box}>
-                            <div className="imgTitle">
-                                <img src={require(`../../styles/IMAGES/${product.img_name}`)} alt={product.name} />
-                                <h2>{product.name}</h2>
-                            </div>
-                            <div className="descButton">
-                                <p>{product.description}</p>
-                                <p className="price">{product.price}€</p>
-                                <NavLink to={`/products/${product.id_box}`}>
-                                    Voir le produit
-                                </NavLink>
-                            </div>
-                            <button className="important" onClick={(e) => this.addToCart(product)}>Ajouter au panier</button>
-                        </div>   
-                    ))}
-                </div>
-            </div>
-         );
-    }
+				  </div>
+				</div>
+			  </div>)
+			  : (this.showBanner())
+		  }
+	
+		  <div className="productsTitle">
+			<h2>Adaptez son régime en fonction de nos catégories !</h2>
+			<button className="important" onClick={() => {
+				this.showAllProducts();
+			  }}>
+			  Toutes nos box
+			</button>
+		  </div>
+		  <div className="filters">
+			<div className="filter">
+			  {
+				this.state.pet === ""
+				  ? <div/>
+				  : this.showInput()
+			  }
+			</div>
+			<div className="filter">
+			  <label for="category-selected">Limite de prix:</label>
+			  <select id="category-selected" value={this.state.value} onChange={event => {
+				  this.handlePrice(event);
+				}}>
+				<option value="10">10€</option>
+				<option value="20">20€</option>
+				<option value="30">30€</option>
+				<option value="40">40€</option>
+				<option value="50">50€</option>
+				<option value="60">60€</option>
+				<option value="70">70€</option>
+				<option value="80">80€</option>
+			  </select>
+			</div>
+			<div className="filter">
+			  <strong>En fonction du poids</strong>
+			  <button value="souspoids" className="important" onClick={event => {
+				  this.handleWeight(event);
+				}}>
+				en sous-poids
+			  </button>
+			  <button value="normal" className="important" onClick={event => {
+				  this.handleWeight(event);
+				}}>
+				normal
+			  </button>
+			  <button value="surpoids" className="important" onClick={event => {
+				  this.handleWeight(event);
+				}}>
+				en surpoids
+			  </button>
+			</div>
+			<div className="filter">
+			  <strong>En fonction de l'âge</strong>
+			  <button value="adulte" className="important" onClick={event => {
+				  this.handleAge(event);
+				}}>
+				adulte
+			  </button>
+			  <button value="bebe" className="important" onClick={event => {
+				  this.handleAge(event);
+				}}>
+				bebe
+			  </button>
+			  <button value="senior" className="important" onClick={event => {
+				  this.handleAge(event);
+				}}>
+				senior
+			  </button>
+			</div>
+			<div className="filter">
+			  <strong>En fonction du poil</strong>
+			  <button value="long" className="important" onClick={event => {
+				  this.handleFur(event);
+				}}>
+				poil long
+			  </button>
+			  <button value="court" className="important" onClick={event => {
+				  this.handleFur(event);
+				}}>
+				poil court
+			  </button>
+			</div>
+		  </div>
+		  <div className="boxes container">
+			{
+			  this.state.products.map(product => (<div className="box" key={product.id_box}>
+				<div className="imgTitle">
+				  <img src={require(`../../styles/IMAGES/${product.img_name}`)} alt={product.name}/>
+				  <h2>{product.name}</h2>
+				</div>
+				<div className="descButton">
+				  <p>{product.description}</p>
+				  <p>{product.price}€</p>
+				  <NavLink to={`/products/${product.id_box}`}>
+					Voir le produit
+				  </NavLink>
+				</div>
+				<button className="important" onClick={e => this.addToCart(product)}>
+				  Ajouter au panier
+				</button>
+			  </div>))
+			}
+		  </div>
+		</div>);
+	  }
+	
+	  showBanner() {
+		if (this.state.pet === "chien") {
+		  return (<img src={bannerDog} className="petBanner" alt="Bannière pour chat"/>);
+		} else if (this.state.pet === "chat") {
+		  return (<img src={bannerCat} className="petBanner" alt="Bannière pour chat"/>);
+		}
+	  }
+	
+	  showInput() {
+		if (this.state.pet === "chien") {
+		  return (<div>
+			<div>Vous avez un chat</div>
+			<button value="chat" className="important" onClick={event => {
+				this.handleChange(event);
+			  }}>
+			  Box pour chat
+			</button>
+		  </div>);
+		} else if (this.state.pet === "chat") {
+		  return (<div>
+			<div>Vous avez un chien</div>
+			<button value="chien" className="important" onClick={event => {
+				this.handleChange(event);
+			  }}>
+			  Box pour chien
+			</button>
+		  </div>);
+		}
+	  }
 }

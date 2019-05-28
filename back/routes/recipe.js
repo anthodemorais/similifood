@@ -60,19 +60,18 @@ exports.default = (app, con) => {
             if (result.length != 0)
             {
                 con.query(`INSERT INTO recipe_has_ingredients(ingredient_id, recipe_id, quantity)
-                            VALUES (?, ?, ?)`, [result.id_ingredient, sanitizer.sanitize(req.params.recipe_id), sanitizer.sanitize(req.body.quantity)], (err, result, fields) => {
-
+                            VALUES (?, ?, ?)`, [result.id_ingredient, sanitizer.sanitize(req.params.recipe_id), sanitizer.sanitize(req.body.quantity)], (err, result2, fields) => {
                     if (err) {
                         res.status(500);
                         res.json({error: err});
                     }
                     res.status(200);
-                    res.json({result: result});
+                    res.json({result: result2});
                 });
             }
             else
             {
-                services.addIntoTable("ingredients", "ingredient", [sanitizer.sanitize(req.body.ingredient)]).then((result2) => {
+                con.query(`INSERT INTO ingredients(ingredient) VALUES (?)`, [sanitizer.sanitize(req.body.ingredient)], (err, result2, fields) => {
                     con.query(`INSERT INTO recipe_has_ingredients(ingredient_id, recipe_id, quantity)
                                 VALUES (?, ?, ?)`, [result2.insertId, sanitizer.sanitize(req.params.recipe_id), sanitizer.sanitize(req.body.quantity)], (err, result3, fields) => {
 
@@ -98,16 +97,16 @@ exports.default = (app, con) => {
             if (result.length != 0)
             {
                 con.query(`INSERT INTO recipe_has_tools(tool_id, recipe_id)
-                            VALUES (?, ?)`, [result.id_tool, sanitizer.sanitize(req.params.recipe_id)], (err, result, fields) => {
-                    resolve(result);
+                            VALUES (?, ?)`, [result.id_tool, sanitizer.sanitize(req.params.recipe_id)], (err, result2, fields) => {
+                    res.status(200);
+                    res.json({result: result2});
                 });
             }
             else
             {
-                services.addIntoTable("tools", "tool", [sanitizer.sanitize(req.body.tool)]).then((result2) => {
+                con.query(`INSERT INTO tools(tool) VALUES (?)`, [sanitizer.sanitize(req.body.tool)], (err, result2, fields) => {
                     con.query(`INSERT INTO recipe_has_tools(tool_id, recipe_id)
                                 VALUES (?, ?)`, [result2.insertId, sanitizer.sanitize(req.params.recipe_id)], (err, result3, fields) => {
-
                         if (err) {
                             res.status(500);
                             res.json({error: err});

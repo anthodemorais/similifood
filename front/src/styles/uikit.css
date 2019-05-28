@@ -84,8 +84,7 @@ form input, .checkout input
     height: 30px;
     width: 300px;
     border-radius: 10px;
-    margin-top: 15px;
-    margin-bottom: 30px;
+    margin-top: 10px;
     border: 2px solid #1B264F;
     padding-left: 5px;
 }

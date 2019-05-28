@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const session = require('express-session');
 const config = require('./config/config.js');
-const mysqlAdmin = require('node-mysql-admin');
+const cors = require('cors')
 
 // à modifier en fonction du pc
 const con = mysql.createPool({
@@ -26,8 +26,8 @@ app.use(session({
   cookie: { secure: true }
 }))
 
-// accéder à la partie admin sur la route http://localhost:8000/myadmin
-app.use(mysqlAdmin(app));
+app.use(cors())
+app.options('*', cors())
 
 var urlencodedParser = bodyParser.urlencoded({
     extended: true

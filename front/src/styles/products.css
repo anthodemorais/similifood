@@ -1,6 +1,19 @@
+.petBanner {
+    width: 100vw;
+    height: 80vh;
+    margin: 0;
+    margin-bottom: 50px;
+
+}
+
 .productsContainer
 {
     height: max-content;
+}
+
+.productsContainer > div > h2
+{
+    text-align: center;
 }
 
 .container .boxes

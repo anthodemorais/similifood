@@ -163,7 +163,7 @@ let api = {
 
     addProduct: (name, price, description, animal, img_name, age, weight, fur) => {
         return new Promise((resolve, reject) => {
-            fetch(api.url + `products/`, {
+            fetch(api.url + `products`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
@@ -180,7 +180,7 @@ let api = {
 
     addRecipe: (name, steps, preparation_time, cook_time, difficulty, id_box) => {
         return new Promise((resolve, reject) => {
-            fetch(api.url + `recipe/`, {
+            fetch(api.url + `recipe`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
@@ -195,7 +195,7 @@ let api = {
         });
     },
 
-    addIngredientForRecipe: (recipe_id, ingredient) => {
+    addIngredientForRecipe: (recipe_id, ingredient, quantity) => {
         return new Promise((resolve, reject) => {
             fetch(api.url + `recipes/ingredients/${recipe_id}`, {
                 method: 'POST',
@@ -203,7 +203,7 @@ let api = {
                     "Content-Type": "application/json",
                     "Authorization": "Bearer " + localStorage.getItem("token")
                 },
-                body: JSON.stringify({ admin: localStorage.getItem("admin") === "1", ingredient})
+                body: JSON.stringify({ admin: localStorage.getItem("admin") === "1", ingredient, quantity})
             }).then((results) => {
                 results.json().then((json) => {
                     resolve(json.result);

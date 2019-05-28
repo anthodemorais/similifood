@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 import '../../styles/footer.css';
 import fb from '../../styles/ICONES/FACEBOOK.svg';
 import insta from '../../styles/ICONES/INSTAGRAM.svg';
-import twitter from '../../styles/ICONES/TWITTER.svg';
 import delivery from '../../styles/ICONES/DELIVERY.svg';
 import chrono from '../../styles/ICONES/24H.svg';
 import paypal from '../../styles/ICONES/PAYPAL.svg';
@@ -23,9 +22,9 @@ export default class Footer extends Component {
                         <NavLink to={`https://www.instagram.com`}>
                             <img className="int" src={insta} alt="Logo d'Instagram"/>
                         </NavLink>
-                        <NavLink to={`https://twitter.com`}>
+                        {/* <NavLink to={`https://twitter.com`}>
                             <img className="twi" src={twitter} alt="Logo de Twitter"/>
-                        </NavLink>
+                        </NavLink> */}
                     </div>
                     <div className="delivery">
                         <h4>Livraison rapide !</h4>
@@ -67,7 +66,8 @@ export default class Footer extends Component {
                     </div>
                     <div id="contact">
                         <span className="contact title">Contact</span>
-                        <span className="mail">contact-miam@miam.fr</span>
+                        <span className="mail">miamentreprise@gmail.com</span>
+                        <span className="tel">01.82.45.65.87</span>
                     </div>
                     <img src={logo} alt="Logo de notre site"/>
                 </div>

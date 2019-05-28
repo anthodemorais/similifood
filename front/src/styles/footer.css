@@ -74,14 +74,15 @@ h4{
 .fac, .int, .twi, .time, .transport{
     width: 75px;
     height: 75px;
+    padding-right: 20px;
 }
 .pp{
     width: 90px;
     height: 85px;
 }
 .visa{
-    width: 90px;
-    height: 80px;
+    width: 70px;
+    height: 90px;
 }
 .title, .blod{
     font-weight: bold;
@@ -94,7 +95,7 @@ h4{
 a{
     color: white;
 }
-.mail{
+.mail, .tel{
     margin-top: 15px;
     font-size: 12px;
 }
