@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import AdminProducts from './AdminProducts';
-import AdminRecipe from './AdminRecipe';
 
 class Admin extends Component {
     constructor(props) {
@@ -11,7 +10,6 @@ class Admin extends Component {
         return (
             <div>
                 <AdminProducts />
-                <AdminRecipe />
             </div>
         );
     }

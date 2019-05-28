@@ -161,6 +161,74 @@ let api = {
         });
     },
 
+    addProduct: (name, price, description, animal, img_name, age, weight, fur) => {
+        return new Promise((resolve, reject) => {
+            fetch(api.url + `products/`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                },
+                body: JSON.stringify({ admin: localStorage.getItem("admin") === "1", name, price, description, animal, img_name, age, weight, fur})
+            }).then((results) => {
+                results.json().then((json) => {
+                    resolve(json.result);
+                });
+            });
+        });
+    },
+
+    addRecipe: (name, steps, preparation_time, cook_time, difficulty, id_box) => {
+        return new Promise((resolve, reject) => {
+            fetch(api.url + `recipe/`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                },
+                body: JSON.stringify({ admin: localStorage.getItem("admin") === "1", name, steps, preparation_time, cook_time, difficulty, id_box})
+            }).then((results) => {
+                results.json().then((json) => {
+                    resolve(json.result);
+                });
+            });
+        });
+    },
+
+    addIngredientForRecipe: (recipe_id, ingredient) => {
+        return new Promise((resolve, reject) => {
+            fetch(api.url + `recipes/ingredients/${recipe_id}`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                },
+                body: JSON.stringify({ admin: localStorage.getItem("admin") === "1", ingredient})
+            }).then((results) => {
+                results.json().then((json) => {
+                    resolve(json.result);
+                });
+            });
+        });
+    },
+
+    addToolForRecipe: (recipe_id, tool) => {
+        return new Promise((resolve, reject) => {
+            fetch(api.url + `recipes/tools/${recipe_id}`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                },
+                body: JSON.stringify({ admin: localStorage.getItem("admin") === "1", tool})
+            }).then((results) => {
+                results.json().then((json) => {
+                    resolve(json.result);
+                });
+            });
+        });
+    },
+
     deleteProduct: (id) => {
         return new Promise((resolve, reject) => {
             fetch(api.url + `products/${id}`, {

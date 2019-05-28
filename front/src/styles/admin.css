@@ -2,3 +2,11 @@ tr, td, th
 {
     border: 1px solid #1B264F;
 }
+
+.adminForms
+{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+}
