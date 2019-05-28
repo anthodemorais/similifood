@@ -81,8 +81,9 @@ h4{
     height: 85px;
 }
 .visa{
-    width: 70px;
+    width: 130px;
     height: 90px;
+    padding-left: 20px;
 }
 .title, .blod{
     font-weight: bold;

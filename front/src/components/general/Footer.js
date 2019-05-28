@@ -33,7 +33,7 @@ export default class Footer extends Component {
                     </div>
                     <div className="payment">
                         <h4>Paiement sécurisé !</h4>
-                        <img className="pp" src={paypal} alt="Icône indiquant que nous acceptons PayPal en moyen de paiement"/>
+                        {/* <img className="pp" src={paypal} alt="Icône indiquant que nous acceptons PayPal en moyen de paiement"/> */}
                         <img className="visa" src={visa} alt="Icône indiquant que nous acceptons les cartes bleues Visa en moyen de paiement"/>
                     </div>
                 </div>

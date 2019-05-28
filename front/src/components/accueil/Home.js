@@ -35,7 +35,15 @@ export default class Home extends Component {
                 </div>
         
                 <div className="presentation">
-        
+                    <h2>Concept</h2>
+                    <p>
+                    Le marché de l’alimentation animale étant en demande constante, il était important de se positionner sur ce terrain.
+                    En effet, de nombreux problèmes sont liés à l’alimentation industrielle proposé pour les animaux.
+                    Afin de réagir à tous ces problèmes, nous avons décidé de créer une marque proposant des paniers
+                    repas afin de réaliser de nombreuses recettes élaborées par des vétérinaires ainsi que des nutritionnistes.
+                    Cela permet de respecter les valeurs nutritionnelles ainsi que les besoins alimentaires des différents animaux tout
+                    en respectant leurs caractéristiques (race, poil, maladie...).
+                    </p>
                 </div>
         
                 <div className="feedbacks container">

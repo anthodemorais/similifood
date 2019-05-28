@@ -104,3 +104,27 @@
     font-family: "Zing Rust";
     font-size: 20px;
 }
+
+.StripeElement
+{
+    margin-top: 20px;
+    border: 2px solid #1B264F;
+    border-radius: 10px;
+    height: 30px;
+    padding: 10px;
+    padding-bottom: 0px;
+    width: 500px;
+}
+
+.paymentLabel
+{
+    margin-top: 20px;
+    font-family: Verdana;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.checkout input
+{
+    margin-bottom: 20px;
+}

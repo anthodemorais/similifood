@@ -24,11 +24,17 @@ export default class Contact extends Component {
                     initium mensis ad nundinas.</p>
                   <strong>Par mail ou par téléphone <br/> au 01.82.45.65.87</strong>
                   <a href="#form">
-                      <button className="important">Envoyer un mail</button>
+                      <button className="important mt">Envoyer un mail</button>
                   </a>
               </div>
           </div>
           <h2>L'équipe</h2>
+          <p>
+              Notre équipe se compose de passionés de l’animal. En plus de s’être creusés les méninges, ils ont décidé de mettre à profit au plus grand nombre leur savoir cumulé au cours de nombreuses années d’études comparatives et d’observation. 
+              <br/>
+              <br/>
+              Ce n’est pas nous qui donnerions notre langue au chat sur le bien être de votre boule de poil préférée!
+          </p>
           <h3>Les membres</h3>
           <div className="team">
               <div>

@@ -132,16 +132,33 @@ a
 
 .presentation
 {
-    height: 200vh;
+    border-top: 2px solid #1B264F;
+    border-bottom: 2px solid #1B264F;
     width: 100%;
-    background-color: #BBB
+    color: #1B264F;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.presentation
+.presentation h2
 {
-    height: 200vh;
-    width: 100%;
-    background-color: #BBB;
+    margin-top: 90px;
+    text-align: center;
+    font-family: "Zing Rust";
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+.presentation p
+{
+    font-family: Verdana;
+    width: 50%;
+    text-align: center;
+    margin-bottom: 90px;
+    font-size: 20px;
+    line-height: 30px;
 }
 
 .feedbacks

@@ -48,6 +48,7 @@ class Payment extends Component {
         <label for="quantity">Quantitée :</label><br/>
         <input type="number" value="1" name="quantity" onChange={e => this.inputChanged(e)} />
         <br/>
+        <span className="paymentLabel">Numéro de carte, Date d'expiration, CVC, Code Postal</span>
         <CardElement />
         <br/>
         <button className="important mt" onClick={this.submit}>Payer</button>
