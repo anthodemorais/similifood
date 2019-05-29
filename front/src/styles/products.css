@@ -14,7 +14,9 @@
 .productsContainer > div > h2
 {
     text-align: center;
-
+    margin: 0;
+    margin-top: 50px;
+    font-size: 40px;
 }
 
 .container .boxes

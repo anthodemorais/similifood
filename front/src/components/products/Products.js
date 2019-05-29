@@ -137,7 +137,7 @@ export default class Products extends Component {
 		  {
 			this.state.pet === ""
 			  ? (<div>
-				<h2>Des boxs pour votre chien ou votre chat ??</h2>
+				<h2>Des boxs pour votre chien ou votre chat ?</h2>
 				<div className="products  container">
 				  <div>
 					<div className="product">

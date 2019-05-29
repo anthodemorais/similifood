@@ -26,7 +26,6 @@ a
     background-size: 100%;
     background-repeat: no-repeat;
     font-family: "Zing Rust";
-    color: #1B264F;
     margin-top: 150px;
 }
 
@@ -75,7 +74,6 @@ a
     justify-content: center;
     width: 100%;
     font-family: "Zing Rust";
-    color: #1B264F;
 }
 
 .products
@@ -135,7 +133,6 @@ a
     border-top: 2px solid #1B264F;
     border-bottom: 2px solid #1B264F;
     width: 100%;
-    color: #1B264F;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -226,7 +223,6 @@ a
 {
     display: flex;
     width: 100%;
-    color: #1B264F;
     margin-top: 50px;
 }
 

@@ -5,7 +5,6 @@ import fb from '../../styles/ICONES/FACEBOOK.svg';
 import insta from '../../styles/ICONES/INSTAGRAM.svg';
 import delivery from '../../styles/ICONES/DELIVERY.svg';
 import chrono from '../../styles/ICONES/24H.svg';
-import paypal from '../../styles/ICONES/PAYPAL.svg';
 import visa from '../../styles/ICONES/VISA.svg';
 import logo from '../../styles/ICONES/LOGO BLANC.svg';
 

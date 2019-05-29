@@ -40,7 +40,6 @@
     align-self: flex-start;
     margin-left: 50px;
     margin-bottom: 20px;
-    color: #1B264F;
     font-family: "Zing Rust";
     font-size: 35px;
 }
@@ -94,7 +93,6 @@
 
 .forgot
 {
-    color: #1B264F;
     text-decoration: underline;
     font-weight: bold;
     font-size: 20px;

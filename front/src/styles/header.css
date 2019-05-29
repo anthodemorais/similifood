@@ -1,3 +1,20 @@
+body
+{
+    color: #1B264F !important;
+}
+
+body.light-mode
+{
+    background-color: #fff!important;
+    color: #1B264F !important;
+    transition: background-color 0.3s ease;
+}
+body.dark-mode
+{
+    background-color: #1a1919 !important;
+    color: yellow !important;
+}
+
 header{
     display: flex;
     justify-content: space-around;
@@ -28,9 +45,9 @@ header{
     justify-content: center;
     flex-direction: column;
     text-align: center;
-    color: #20284D;
     cursor: pointer;
     cursor: pointer;
+    color: #1B264F;
 }
 /*Début Grid*/
 .logotop{
@@ -89,7 +106,6 @@ header .accessibilityIcon
     text-align: center;
     width: 100%;
     font-size: 25px;
-    color: #1B264F;
     font-family: "Zing Rust";
     letter-spacing: 3px;
 }

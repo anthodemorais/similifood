@@ -13,7 +13,6 @@ button:not(.important)
     background-color: white;
     border-radius: 25px;
     font-size: 15px;
-    color: #1B264F;
     cursor: pointer;
 }
 
@@ -74,7 +73,6 @@ form label, .checkout label
     font-size: 15px;
     font-weight: bold;
     text-align: left;
-    color: #1B264F;
 }
 
 form input, .checkout input

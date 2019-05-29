@@ -1,3 +1,8 @@
+.spaced
+{
+    letter-spacing: 2px;
+}
+
 .accessibilityMenu
 {
     position: fixed;
@@ -59,6 +64,7 @@
 .accessibilityMenu > div > div span
 {
     height: min-content;
+    color: #1B264F;
 }
 
 .accessibilityMenu .spacingBtn
